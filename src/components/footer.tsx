@@ -3,7 +3,7 @@ import { FaGithub } from "react-icons/fa";
 
 const Footer = () => {
   return (
-    <footer className="w-full px-30 py-20 2xl:px-40 2xl:py-30 flex flex-row justify-between items-center text-white text-14 2xl:text-20">
+    <footer className="w-full px-30 py-20 2xl:px-40 2xl:py-30 flex flex-row justify-between items-center text-white text-14 2xl:text-20 border-t-[0.5px] border-white/15 2xl:border-t-[1px] 2xl:border-t-white/25">
       {/* Copyright */}
       <div className="flex flex-row justify-start items-center gap-2 2xl:gap-4">
         <p>© {new Date().getFullYear()} All Rights Reserved</p>
