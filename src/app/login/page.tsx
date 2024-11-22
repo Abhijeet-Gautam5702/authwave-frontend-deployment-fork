@@ -5,6 +5,10 @@ import PrimaryBtn from "@/components/buttons/primary-btn";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
+import { adminAuthService } from "@/services/admin-auth.service";
+import { useDispatch } from "react-redux";
+import { storeLogin } from "@/store/auth/auth.slice";
+import { useRouter } from "next/navigation";
 
 interface LoginFormInputs {
   email: string;
@@ -21,16 +25,28 @@ const LoginPage = () => {
   } = useForm<LoginFormInputs>();
 
   const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
+  const router = useRouter();
 
-  // Form submit handler
   const onSubmit = async (data: LoginFormInputs) => {
+    setLoading(true);
     try {
-      setLoading(true);
-      console.log(data);
-      reset();
+      const response = await adminAuthService.login(data);
+      if (response.success) {
+        console.log(response);
+        // Dispatch an action to login
+        dispatch(storeLogin(response.data));
+        // Send a toast notification
+
+        // Clear the form
+        reset();
+        // Redirect to the console
+        router.push("/console");
+      }
       clearErrors();
-    } catch (error) {
-      console.error(error);
+    } catch (error: any) {
+      // Send error toast notification
+      console.log(error.message);
     } finally {
       setLoading(false);
     }

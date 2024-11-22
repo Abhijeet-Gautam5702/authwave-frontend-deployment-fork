@@ -1,0 +1,2 @@
+export const AUTHWAVE_API_VERSION = "v1"
+export const AUTHWAVE_BASE_URL = `${process.env.NEXT_PUBLIC_AUTHWAVE_BASE_URL}/${AUTHWAVE_API_VERSION}`

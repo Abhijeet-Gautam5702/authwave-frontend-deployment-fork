@@ -5,6 +5,7 @@ import PrimaryBtn from "@/components/buttons/primary-btn";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
+import { adminAuthService } from "@/services/admin-auth.service";
 
 interface SignupFormInputs {
   email: string;
@@ -25,13 +26,22 @@ const SignupPage = () => {
   const [loading, setLoading] = useState(false);
 
   const onSubmit = async (data: SignupFormInputs) => {
+    setLoading(true);
     try {
-      setLoading(true);
-      console.log(data);
-      reset();
+      const response = await adminAuthService.signup(data);
+      if (response.success) {
+        console.log(response);
+        // Send a toast notification
+
+        // Clear the form
+        reset();
+      }
       clearErrors();
-    } catch (error) {
-      console.error(error);
+    } catch (error: any) {
+      // Send error toast notification
+      if (error.type === "ALREADY_EXISTS") {
+        console.log(error.message);
+      }
     } finally {
       setLoading(false);
     }

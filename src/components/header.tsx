@@ -27,7 +27,7 @@ const Header = () => {
         </div>
       </Link>
       {/* Nav items */}
-      <div className="flex flex-row justify-center items-center gap-10">
+      <div className="flex flex-row justify-center items-center gap-20  2xl:gap-30">
         <Link href="/docs">Documentation</Link>
         {/* Only authenticated users can access the account page */}
         {isAuthenticated && <Link href="/account">Account</Link>}
