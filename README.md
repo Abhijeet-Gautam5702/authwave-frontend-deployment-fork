@@ -1,2 +1,1 @@
 # Auth Wave frontend website
-
