@@ -22,7 +22,13 @@ const LoginPage = () => {
     reset,
     formState: { errors },
     clearErrors,
-  } = useForm<LoginFormInputs>();
+  } = useForm<LoginFormInputs>({
+    // TODO:Remove the default values when the production is ready
+    defaultValues: {
+      email: "admin@admin.com",
+      password: "Test123456@",
+    },
+  });
 
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
