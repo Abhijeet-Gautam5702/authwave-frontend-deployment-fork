@@ -58,6 +58,7 @@ export default {
         35: "35px",
         40: "40px",
         80: "80px",
+        200: "200px",
         220: "220px",
       },
       borderRadius: {
