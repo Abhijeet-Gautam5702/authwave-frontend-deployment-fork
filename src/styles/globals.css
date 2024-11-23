@@ -5,3 +5,19 @@
 body {
   background-color: var(--background);
 }
+
+.active-text {
+  @apply bg-gradient-to-r from-p-accent from-0% to-s-accent to-80% bg-clip-text text-transparent font-semibold;
+}
+
+.inactive-text {
+  @apply text-white font-thin 2xl:font-extralight;
+}
+
+.page-title {
+  @apply font-medium text-20 2xl:text-28;
+}
+
+.flex-center {
+  @apply flex items-center justify-center;
+}
