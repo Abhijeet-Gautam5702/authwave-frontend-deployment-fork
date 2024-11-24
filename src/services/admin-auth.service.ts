@@ -48,6 +48,17 @@ class AdminAuthService {
       throw error.response.data as IApiError;
     }
   };
+
+  public getAccount = async () => {
+    try {
+      const response = await axios.get(`${AUTHWAVE_BASE_URL}/admin/account`, {
+        withCredentials: true,
+      });
+      return response.data as IApiResponse;
+    } catch (error: any) {
+      throw error.response.data as IApiError;
+    }
+  };
 }
 
 export const adminAuthService = new AdminAuthService();

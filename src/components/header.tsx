@@ -10,7 +10,7 @@ import { RootState } from "@/store/store";
 const Header = () => {
   const { isAuthenticated } = useSelector((state: RootState) => state.auth);
   const pathname = usePathname();
-  const isConsoleRoute = pathname.includes("/console");
+  const isHomeRoute = pathname === "/";
 
   return (
     <header className="w-full px-30 py-20 2xl:px-40 2xl:py-30 flex flex-row justify-between items-center text-white text-14 2xl:text-20 border-b-[0.5px] border-white/15 2xl:border-b-[1px] 2xl:border-b-white/25">
@@ -36,7 +36,7 @@ const Header = () => {
           Documentation
         </Link>
         {/* Only authenticated users can access the projects page */}
-        {isAuthenticated && (
+        {!isHomeRoute && isAuthenticated && (
           <Link
             href="/console"
             className={
@@ -47,7 +47,7 @@ const Header = () => {
           </Link>
         )}
         {/* Only authenticated users can access the account page */}
-        {isAuthenticated && (
+        {!isHomeRoute && isAuthenticated && (
           <Link
             href="/account"
             className={
@@ -58,7 +58,7 @@ const Header = () => {
           </Link>
         )}
         {/* Console button is visible only on non-console routes */}
-        {!isConsoleRoute && <PrimaryBtn text="Console" href="/console" />}
+        {isHomeRoute && <PrimaryBtn text="Console" href="/console" />}
       </div>
     </header>
   );
