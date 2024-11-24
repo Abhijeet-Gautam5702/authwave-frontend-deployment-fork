@@ -1,9 +1,11 @@
 "use client";
 
+import { storeLogin } from "@/store/auth/auth.slice";
+import { getAdmin } from "@/app/page";
 import { RootState } from "@/store/store";
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useRouter, usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 /*
     PROTECTED COMPONENT
@@ -20,14 +22,24 @@ const Protected = <P extends object>(
 ) => {
   // Create a protected component (which is essentially a function) and return it
   const ProtectedComponent = (props: P) => {
-    const { isAuthenticated } = useSelector((state: RootState) => state.auth);
-    const router = useRouter();
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
 
+    const dispatch = useDispatch();
+    const router = useRouter();
+    const pathname = usePathname();
+
+    // Whenever the route-pathname changes, check if the admin is authenticated
     useEffect(() => {
-      if (!isAuthenticated) {
-        router.replace("/login");
-      }
-    }, [isAuthenticated, router]);
+      (async () => {
+        const response = await getAdmin();
+        if (response?.success) {
+          dispatch(storeLogin(response.data));
+          setIsAuthenticated(true);
+        } else {
+          router.replace("/login");
+        }
+      })();
+    }, [router, pathname]);
 
     // Only render the wrapped component if authenticated
     return isAuthenticated ? <WrappedComponent {...props} /> : null;
