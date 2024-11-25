@@ -14,7 +14,7 @@ const ActionBtn = ({
   loading,
   ...props
 }: ActionBtnProps) => {
-  const btnClass = `cursor-pointer font-medium border-[0.5px] 2xl:border-[1px]  border-white text-white rounded-4 2xl:rounded-6  ${className}`;
+  const btnClass = `cursor-pointer rounded-4 2xl:rounded-6 tracking-wider ${className}`;
 
   return (
     <button type={type} className={btnClass} {...props}>
@@ -24,3 +24,16 @@ const ActionBtn = ({
 };
 
 export default ActionBtn;
+
+/* --------- Danger Action Button --------- */
+
+export const DangerActionBtn = ({
+  text,
+  className,
+  loading,
+  ...props
+}: ActionBtnProps) => {
+  return (
+    <ActionBtn text={text} className={className} loading={loading} {...props} />
+  );
+};

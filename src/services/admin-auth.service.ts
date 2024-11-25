@@ -89,6 +89,18 @@ class AdminAuthService {
       throw error.response.data as IApiError;
     }
   };
+
+  public deleteAccount = async () => {
+    try {
+      const response = await axios.delete(
+        `${AUTHWAVE_BASE_URL}/admin/account/delete`,
+        { withCredentials: true }
+      );
+      return response.data as IApiResponse;
+    } catch (error: any) {
+      throw error.response.data as IApiError;
+    }
+  };
 }
 
 export const adminAuthService = new AdminAuthService();
