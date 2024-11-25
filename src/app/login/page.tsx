@@ -73,13 +73,15 @@ const LoginPage = () => {
               placeholder="Enter your email"
               type="email"
               error={errors.email?.message}
-              {...register("email", {
+              register={register}
+              name="email"
+              registerOptions={{
                 required: "Email is required",
                 pattern: {
-                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                  value: /^\S+@\S+\.\S+$/,
                   message: "Invalid email address",
                 },
-              })}
+              }}
             />
             {errors.email?.message && (
               <span className=" bg-danger-2/10 text-12 2xl:text-18 self-start text-danger-2 font-medium rounded-8 2xl:rounded-12 p-12 2xl:p-18">
@@ -95,7 +97,9 @@ const LoginPage = () => {
               placeholder="Enter your password"
               type="password"
               error={errors.password?.message}
-              {...register("password", {
+              register={register}
+              name="password"
+              registerOptions={{
                 required: "Password is required",
                 pattern: {
                   value:
@@ -103,7 +107,7 @@ const LoginPage = () => {
                   message:
                     "Password must contain at least 8 characters, one uppercase letter, one lowercase letter, one number and one special character (@$!%*?&)",
                 },
-              })}
+              }}
             />
             {errors.password?.message && (
               <span className=" bg-danger-2/10 text-12 2xl:text-18 self-start text-danger-2 font-medium rounded-8 2xl:rounded-12 p-12 2xl:p-18">

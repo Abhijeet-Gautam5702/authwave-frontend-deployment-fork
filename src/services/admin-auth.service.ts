@@ -56,6 +56,36 @@ class AdminAuthService {
       });
       return response.data as IApiResponse;
     } catch (error: any) {
+      throw error.response?.data as IApiError;
+    }
+  };
+
+  public logout = async () => {
+    try {
+      const response = await axios.put(
+        `${AUTHWAVE_BASE_URL}/admin/account/logout`,
+        {},
+        {
+          withCredentials: true,
+        }
+      );
+      return response.data as IApiResponse;
+    } catch (error: any) {
+      throw error.response.data as IApiError;
+    }
+  };
+
+  public updateAdminData = async (data: object) => {
+    try {
+      const response = await axios.put(
+        `${AUTHWAVE_BASE_URL}/admin/account/update`,
+        data,
+        {
+          withCredentials: true,
+        }
+      );
+      return response.data as IApiResponse;
+    } catch (error: any) {
       throw error.response.data as IApiError;
     }
   };
