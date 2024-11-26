@@ -1,6 +1,6 @@
 "use client";
 
-import { IAccountFormData } from "@/app/account/page";
+import { IAccountFormData } from "@/app/(default)/account/page";
 import { InputHTMLAttributes, useEffect, useState } from "react";
 import { RegisterOptions, UseFormRegister } from "react-hook-form";
 import { FieldValues } from "react-hook-form";

@@ -2,7 +2,7 @@ import { UseFormRegister } from "react-hook-form";
 import { FieldValues } from "react-hook-form";
 import ActionBtn, { DangerActionBtn } from "../buttons/action-btn";
 import Input from "../input";
-import { IAccountFormData } from "@/app/account/page";
+import { IAccountFormData } from "@/app/(default)/account/page";
 
 interface AccountSettingCardProps {
   title: string;

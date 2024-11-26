@@ -1,7 +1,7 @@
 "use client";
 
 import { storeLogin } from "@/store/auth/auth.slice";
-import { getAdmin } from "@/app/page";
+import { getAdmin } from "@/app/(default)/page";
 import { RootState } from "@/store/store";
 import { useRouter, usePathname } from "next/navigation";
 import { useEffect, useState } from "react";

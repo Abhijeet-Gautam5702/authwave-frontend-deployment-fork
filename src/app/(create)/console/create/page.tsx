@@ -1,5 +1,5 @@
 const CreateProjectPage = () => {
-  return <div>CreateProjectPage</div>;
+  return <div className="w-full h-full">Create a new project</div>;
 };
 
 export default CreateProjectPage;
