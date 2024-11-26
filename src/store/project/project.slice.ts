@@ -49,6 +49,9 @@ const projectSlice = createSlice({
     storeSetProjects: (state, action: PayloadAction<Project[]>) => {
       state.projects = action.payload;
     },
+    storeResetProjects: (state) => {
+      state.projects = [];
+    },
   },
 });
 
@@ -58,5 +61,6 @@ export const {
   storeUpdateProject,
   storeDeleteProject,
   storeSetProjects,
+  storeResetProjects,
 } = projectSlice.actions;
 export const projectReducer = projectSlice.reducer;

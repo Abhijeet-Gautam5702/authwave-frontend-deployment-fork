@@ -8,10 +8,12 @@ import { FieldValues } from "react-hook-form";
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   labelStyle?: string;
+  subText?: string;
+  subTextStyle?: string;
   additionalStyle?: string;
   widthStyle?: string;
   type?: string;
-  name: keyof IAccountFormData;
+  name: any;
   register: any;
   registerOptions?: RegisterOptions;
   error?: string; // For handling errors from React-Hook-Form
@@ -20,6 +22,8 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 const Input = ({
   label,
   labelStyle,
+  subText,
+  subTextStyle,
   disabled = false,
   placeholder,
   widthStyle = "w-[350px] 2xl:w-[500px]",
@@ -32,9 +36,12 @@ const Input = ({
 }: InputProps) => {
   return (
     <div className={`${widthStyle} flex flex-col items-start gap-8 2xl:gap-12`}>
-      {label && (
-        <label className={`text-white ${labelStyle}`}>{label}</label>
-      )}
+      <div className="w-full flex flex-col justify-start items-start 2xl:gap-2">
+        {label && <label className={`text-white ${labelStyle}`}>{label}</label>}
+        {subText && (
+          <p className={`text-white/50 ${subTextStyle}`}>{subText}</p>
+        )}
+      </div>
       <input
         type={type}
         disabled={disabled}

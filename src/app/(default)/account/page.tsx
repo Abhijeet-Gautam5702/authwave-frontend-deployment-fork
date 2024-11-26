@@ -10,6 +10,7 @@ import Protected from "@/components/protected";
 import { adminAuthService } from "@/services/admin-auth.service";
 import { projectService } from "@/services/project.service";
 import { storeLogout, storeUpdateAdminInfo } from "@/store/auth/auth.slice";
+import { storeResetProjects } from "@/store/project/project.slice";
 import { RootState } from "@/store/store";
 import { Loader, Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -135,6 +136,9 @@ const AccountPage = () => {
       const response = await projectService.deleteAllProjects();
       if (response.success) {
         // Show success toast
+
+        // Reset the projects in the store
+        dispatch(storeResetProjects());
 
         console.log(response);
       }

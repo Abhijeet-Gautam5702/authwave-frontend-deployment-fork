@@ -39,7 +39,7 @@ const ConsolePage = () => {
   }, []);
 
   return (
-    <div className="text-white w-full grow flex flex-col items-start justify-start gap-20 2xl:gap-40 px-30 2xl:px-200 py-40 2xl:py-80">
+    <div className="text-white w-full grow flex flex-col items-start justify-start gap-20 2xl:gap-40 px-100 2xl:px-200 py-40 2xl:py-80">
       <h1 className="page-title">Personal Projects</h1>
       <section className="w-full flex flex-wrap items-center justify-start gap-30">
         {projectsFromStore.map((project) => (
