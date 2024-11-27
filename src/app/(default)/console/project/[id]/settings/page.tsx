@@ -6,14 +6,34 @@ import Protected from "@/components/protected";
 import { getProjectById } from "@/store/project/project.slice";
 import { RootState } from "@/store/store";
 import { useParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 const SettingsPage = () => {
+  const [isLoading, setIsLoading] = useState(true);
+
   const params = useParams();
 
   const project = useSelector((state: RootState) =>
     getProjectById(state, params.id as string)
   );
+
+  const projects = useSelector((state: RootState) => state.project.projects);
+  console.log(projects);
+
+  useEffect(() => {
+    if (projects.length > 0) {
+      setIsLoading(false);
+    }
+  }, [projects]);
+
+  if (isLoading) {
+    return (
+      <div className="text-white grow h-full w-full flex flex-col justify-center items-center gap-0 p-0">
+        Loading...
+      </div>
+    );
+  }
 
   return (
     <div className="w-full grow flex flex-col justify-start items-center gap-0 p-0">
