@@ -1,3 +1,4 @@
+import { IProjectConfig } from "@/services/project.service";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 /* -----------------------------TYPES----------------------------- */
@@ -10,7 +11,7 @@ export interface Project {
   updatedAt: string;
   projectKey: string;
   owner: string;
-  config: object;
+  config: IProjectConfig;
 }
 
 interface ProjectState {
@@ -32,13 +33,34 @@ const projectSlice = createSlice({
     },
     storeUpdateProject: (
       state,
-      action: PayloadAction<Partial<Project> & { id: string }>
+      action: PayloadAction<{
+        _id: string;
+        appName?: string;
+        appEmail?: string;
+        config?: Partial<IProjectConfig>;
+      }>
     ) => {
       const index = state.projects.findIndex(
         (project) => project._id === action.payload._id
       );
       if (index !== -1) {
-        state.projects[index] = { ...state.projects[index], ...action.payload };
+        const project = state.projects[index];
+        
+        // Update allowed top-level fields
+        if (action.payload.appName) {
+          state.projects[index].appName = action.payload.appName;
+        }
+        if (action.payload.appEmail) {
+          state.projects[index].appEmail = action.payload.appEmail;
+        }
+        
+        // Update config if provided
+        if (action.payload.config) {
+          state.projects[index].config = {
+            ...project.config,
+            ...action.payload.config
+          };
+        }
       }
     },
     storeDeleteProject: (state, action: PayloadAction<string>) => {
@@ -54,6 +76,20 @@ const projectSlice = createSlice({
     },
   },
 });
+
+/* ----------------SELECTORS------  ------------- */
+
+/*
+  NOTE:
+  Redux reducers are not supposed to return a value; they are only meant to mutate the state.
+  Therefore, we use selectors to get the state values.
+*/
+export const getProjectById = (
+  state: { project: ProjectState },
+  id: string
+) => {
+  return state.project.projects.find((project) => project._id === id);
+};
 
 /* -----------------------------ACTIONS AND REDUCER----------------------------- */
 export const {

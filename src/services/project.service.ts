@@ -3,17 +3,17 @@ import { IApiError, IApiResponse } from "@/types/response.types";
 import axios from "axios";
 
 /* ------------ Interfaces ------------ */
-interface LoginMethods {
+export interface LoginMethods {
   emailPassword: boolean;
   OTPonEmail?: boolean;
   OTPonMobile?: boolean;
   magicURLonEmail?: boolean;
 }
-interface SecurityConfig {
+export interface SecurityConfig {
   userLimit?: number;
   userSessionLimit?: number;
 }
-interface EmailTemplateConfig {
+export interface EmailTemplateConfig {
   userVerification?: string;
   resetPassword?: string;
   userLimitExceeded?: string;
@@ -21,7 +21,7 @@ interface EmailTemplateConfig {
   OTPonEmail?: string;
   magicURLonEmail?: string;
 }
-interface IProjectConfig{
+export interface IProjectConfig {
   loginMethods: LoginMethods;
   security?: SecurityConfig;
   emailTemplates?: EmailTemplateConfig;
@@ -67,6 +67,47 @@ class ProjectService {
         data,
         {
           withCredentials: true,
+        }
+      );
+      return response.data as IApiResponse;
+    } catch (error: any) {
+      throw error.response.data as IApiError;
+    }
+  };
+
+  public resetSecuritySettings = async (
+    projectId: string,
+    projectKey: string
+  ) => {
+    try {
+      const response = await axios.put(
+        `${AUTHWAVE_BASE_URL}/project/reset/security-setting`,
+        {},
+        {
+          withCredentials: true,
+          headers: { "project-id": projectId, "project-key": projectKey },
+        }
+      );
+      return response.data as IApiResponse;
+    } catch (error: any) {
+      throw error.response.data as IApiError;
+    }
+  };
+
+  public updateSecuritySettings = async (
+    projectId: string,
+    projectKey: string,
+    data: SecurityConfig
+  ) => {
+    try {
+      const response = await axios.put(
+        `${AUTHWAVE_BASE_URL}/project/update/security`,
+        {
+          security: data,
+        },
+        {
+          withCredentials: true,
+          headers: { "project-id": projectId, "project-key": projectKey },
         }
       );
       return response.data as IApiResponse;
