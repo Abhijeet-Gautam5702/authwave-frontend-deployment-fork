@@ -22,6 +22,20 @@ const ConsolePage = () => {
 
   const dispatch = useDispatch<AppDispatch>();
 
+  // On Page Load => Fetch the projects from the API and store them in the redux-store
+  // useEffect(() => {
+  //   (async () => {
+  //     try {
+  //       const response = await projectService.getProjects();
+  //       if (response?.success) {
+  //         dispatch(storeSetProjects(response.data));
+  //       }
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   })();
+  // }, []);
+
   return (
     <div className="text-white w-full grow flex flex-col items-start justify-start gap-20 2xl:gap-40 px-100 2xl:px-200 py-40 2xl:py-80">
       <h1 className="page-title">Personal Projects</h1>

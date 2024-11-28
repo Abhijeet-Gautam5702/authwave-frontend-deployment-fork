@@ -9,7 +9,6 @@ import { useDispatch } from "react-redux";
 export const getAdmin = async () => {
   try {
     const response = await adminAuthService.getAccount();
-    // console.log(response);
     return response;
   } catch (error) {
     console.log(error);
@@ -19,7 +18,7 @@ export const getAdmin = async () => {
 export default function Home() {
   const dispatch = useDispatch();
 
-  // On Page Load => Log the admin into the system
+  // On Page Load => Log the admin into the store
   useEffect(() => {
     (async () => {
       const response = await getAdmin();

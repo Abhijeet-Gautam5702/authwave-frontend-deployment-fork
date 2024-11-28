@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { projectService } from "@/services/project.service";
 import { storeSetProjects } from "@/store/project/project.slice";
+import Persist from "@/store/persist";
 
 /*
     PROTECTED COMPONENT
@@ -24,38 +25,40 @@ const Protected = <P extends object>(
 ) => {
   // Create a protected component (which is essentially a function) and return it
   const ProtectedComponent = (props: P) => {
-    const isAuthenticated = useSelector(
-      (state: RootState) => state.auth.isAuthenticated
-    );
+    const auth = useSelector((state: RootState) => state.auth);
 
     const dispatch = useDispatch();
     const router = useRouter();
     const pathname = usePathname();
 
-    /*
-      NOTE:
-      Since this useEffect is asynchronous, it will run parallely in the background and will not block the render of any component wrapped inside it.
-    */
+    // Set the auth and projects in the redux-store from the session-storage
     useEffect(() => {
-      // Check if the admin is authenticated
-      (async () => {
-        const response = await getAdmin();
-        if (response?.success) {
-          dispatch(storeLogin(response.data));
+      const authFromLocalStorage = Persist.auth.get();
+      const projectsFromLocalStorage = Persist.projects.get();
 
-          // Fetch the projects
-          const projectsAPIResponse = await projectService.getProjects();
-          if (projectsAPIResponse?.success) {
-            dispatch(storeSetProjects(projectsAPIResponse.data));
+      // If the admin is not authenticated, redirect to the login page
+      if (!authFromLocalStorage) {
+        router.replace("/login");
+        return;
+      } else {
+        dispatch(storeLogin(authFromLocalStorage));
+      }
+
+      // If the projects are not in the redux-store, fetch them from the API and store them in the redux-store
+      if (projectsFromLocalStorage) {
+        dispatch(storeSetProjects(projectsFromLocalStorage));
+      } else {
+        (async () => {
+          const response = await projectService.getProjects();
+          if (response?.success) {
+            dispatch(storeSetProjects(response.data));
           }
-        } else {
-          router.replace("/login");
-        }
-      })();
+        })();
+      }
     }, [router, pathname]);
 
     // Only render the wrapped component if authenticated
-    return isAuthenticated ? <WrappedComponent {...props} /> : null;
+    return auth.isAuthenticated ? <WrappedComponent {...props} /> : null;
   };
 
   return ProtectedComponent;
