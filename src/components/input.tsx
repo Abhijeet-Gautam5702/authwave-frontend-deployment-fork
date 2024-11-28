@@ -4,6 +4,7 @@ import { IAccountFormData } from "@/app/(default)/account/page";
 import { InputHTMLAttributes, useEffect, useState } from "react";
 import { RegisterOptions, UseFormRegister } from "react-hook-form";
 import { FieldValues } from "react-hook-form";
+import { IconType } from "react-icons";
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
@@ -17,6 +18,8 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   register: any;
   registerOptions?: RegisterOptions;
   error?: string; // For handling errors from React-Hook-Form
+  icon?: IconType;
+  iconOnClick?: () => void;
 }
 
 const Input = ({
@@ -33,6 +36,8 @@ const Input = ({
   registerOptions,
   name,
   error,
+  icon: Icon, // destructure the icon
+  iconOnClick,
   ...props
 }: InputProps) => {
   return (
@@ -45,18 +50,27 @@ const Input = ({
           <p className={`text-white/50 ${subTextStyle}`}>{subText}</p>
         )}
       </div>
-      <input
-        type={type}
-        disabled={disabled}
-        placeholder={placeholder}
-        className={`w-full font-extralight text-14 2xl:text-20 text-white placeholder:text-white/50 rounded-4 2xl:rounded-8 px-20 py-12 2xl:px-35 2xl:py-18 border-[0.5px] 2xl:border-[1px] border-white/50 focus:outline-none focus:none disabled:bg-gray-100 disabled:cursor-not-allowed bg-transparent ${
-          type === "number"
-            ? "[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
-            : ""
-        } ${additionalStyle}`}
-        {...register(name, registerOptions)}
-        {...props}
-      />
+      <div className="w-full flex flex-row justify-start items-center gap-12 2xl:gap-20">
+        <input
+          type={type}
+          disabled={disabled}
+          placeholder={placeholder}
+          className={`w-full font-extralight text-14 2xl:text-20 text-white placeholder:text-white/50 rounded-4 2xl:rounded-8 px-20 py-12 2xl:px-35 2xl:py-18 border-[0.5px] 2xl:border-[1px] border-white/50 focus:outline-none focus:none disabled:text-white/30 disabled:cursor-not-allowed bg-transparent ${
+            type === "number"
+              ? "[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+              : ""
+          } ${additionalStyle}`}
+          {...register(name, registerOptions)}
+          {...props}
+        />
+        {Icon && (
+          <Icon
+            className="cursor-pointer text-white/50 hover:text-white transition-colors duration-100"
+            size={20}
+            onClick={iconOnClick}
+          />
+        )}
+      </div>
       {/* Error Message */}
       {error && (
         <span className="w-full bg-danger-2/10 text-12 2xl:text-18 self-start text-danger-1/60 font-medium rounded-8 2xl:rounded-12 p-12 2xl:p-18 transition-all duration-300 tracking-wider">

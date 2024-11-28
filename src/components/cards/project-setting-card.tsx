@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form";
 import { projectService } from "@/services/project.service";
 import { Project, storeUpdateProject } from "@/store/project/project.slice";
 import NotificationLabel from "../labels/notification-label";
+import { FiCopy } from "react-icons/fi";
 
 interface SecurityCardProps {
   project: Project;
@@ -116,7 +117,6 @@ export const SecuritySettingCard = ({ project }: SecurityCardProps) => {
       <div className="w-full flex flex-row justify-between items-stretch gap-30 2xl:gap-40">
         {/* Title and Description */}
         <div className="w-1/2 flex flex-col justify-start items-start gap-0">
-        
           <p className="text-20 2xl:text-24 font-medium">Users</p>
           <p className="text-12 2xl:text-18 text-white/50 mb-auto">
             Set an upper limit to the number of users that can enroll in the app
@@ -199,6 +199,84 @@ export const SecuritySettingCard = ({ project }: SecurityCardProps) => {
   );
 };
 
-export const EmailTemplateCard = () => {
-  return <div>EmailTemplateCard</div>;
+/* PROJECT SETTING OVERVIEW CARDS */
+interface ProjectDetailsCardProps {
+  project: Project;
+}
+export const DetailsCard = ({ project }: ProjectDetailsCardProps) => {
+  const dispatch = useDispatch();
+  const { register, handleSubmit, clearErrors } = useForm<{
+    projectId: string;
+    projectKey: string;
+  }>({
+    defaultValues: {
+      projectId: project._id,
+      projectKey: project.projectKey,
+    },
+  });
+
+  const generateNewProjectKey = async () => {
+    try {
+      // const response = await projectService.generateNewProjectKey(project._id);
+      console.log("Generating new project key...");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  return (
+    <section className="bg-bg-2 w-full flex flex-col justify-between items-center 2xl:gap-35 gap-25 p-26 2xl:p-40 rounded-12 2xl:rounded-16">
+      {/* Setting title and input container */}
+      <div className="w-full flex flex-row justify-between items-stretch gap-30 2xl:gap-40">
+        {/* Title and Description */}
+        <div className="w-1/2 flex flex-col justify-start items-start gap-0">
+          <p className="text-20 2xl:text-24 font-medium">Project Details</p>
+          <p className="text-12 2xl:text-18 text-white/50 mb-auto">
+            All the authentication services on your web application will be
+            accessed using these credentials
+          </p>
+          <NotificationLabel text="If you suspect your project has been compromised, change the Project Key immediately" />
+        </div>
+        {/* Input Components */}
+        <div className="w-1/2 flex flex-col justify-start items-start gap-10">
+          <Input
+            disabled
+            additionalStyle="text-14 2xl:text-18"
+            widthStyle="w-full"
+            name="projectId"
+            register={register}
+            label="Project ID"
+            labelStyle="text-14 2xl:text-18"
+            type="text"
+            icon={FiCopy}
+            iconOnClick={() => navigator.clipboard.writeText(project._id)}
+          />
+          <Input
+            disabled
+            additionalStyle="text-14 2xl:text-18"
+            widthStyle="w-full"
+            name="projectKey"
+            register={register}
+            label="Project Key"
+            labelStyle="text-14 2xl:text-18"
+            type="text"
+            icon={FiCopy}
+            iconOnClick={() =>
+              navigator.clipboard.writeText(project.projectKey)
+            }
+          />
+        </div>
+      </div>
+
+      {/* Action Button */}
+      <div className="w-full flex flex-row justify-end items-center gap-10">
+        <ActionBtn
+          type="submit"
+          text="Generate New Project Key"
+          onClick={handleSubmit(generateNewProjectKey)}
+          className="px-20 py-10 2xl:px-35 2xl:py-16 text-14 2xl:text-18 border-[0.5px] 2xl:border-[1px] border-white text-white"
+        />
+      </div>
+    </section>
+  );
 };
