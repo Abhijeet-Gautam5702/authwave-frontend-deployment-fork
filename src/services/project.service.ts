@@ -115,6 +115,25 @@ class ProjectService {
       throw error.response.data as IApiError;
     }
   };
+
+  public generateNewProjectKey = async (
+    projectId: string,
+    projectKey: string
+  ) => {
+    try {
+      const response = await axios.put(
+        `${AUTHWAVE_BASE_URL}/project/generate-new-key`,
+        {},
+        {
+          withCredentials: true,
+          headers: { "project-id": projectId, "project-key": projectKey },
+        }
+      );
+      return response.data as IApiResponse;
+    } catch (error: any) {
+      throw error.response.data as IApiError;
+    }
+  };
 }
 
 export const projectService = new ProjectService();

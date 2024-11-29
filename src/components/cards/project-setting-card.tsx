@@ -8,6 +8,8 @@ import { projectService } from "@/services/project.service";
 import { Project, storeUpdateProject } from "@/store/project/project.slice";
 import NotificationLabel from "../labels/notification-label";
 import { FiCopy } from "react-icons/fi";
+import { useState } from "react";
+import { Loader2 } from "lucide-react";
 
 interface SecurityCardProps {
   project: Project;
@@ -200,12 +202,14 @@ export const SecuritySettingCard = ({ project }: SecurityCardProps) => {
 };
 
 /* PROJECT SETTING OVERVIEW CARDS */
-interface ProjectDetailsCardProps {
+interface CredentialsCardProps {
   project: Project;
 }
-export const DetailsCard = ({ project }: ProjectDetailsCardProps) => {
+export const CredentialsCard = ({ project }: CredentialsCardProps) => {
+  const [isLoading, setIsLoading] = useState(false);
+
   const dispatch = useDispatch();
-  const { register, handleSubmit, clearErrors } = useForm<{
+  const { register, handleSubmit, clearErrors, reset } = useForm<{
     projectId: string;
     projectKey: string;
   }>({
@@ -216,67 +220,99 @@ export const DetailsCard = ({ project }: ProjectDetailsCardProps) => {
   });
 
   const generateNewProjectKey = async () => {
+    setIsLoading(true);
     try {
-      // const response = await projectService.generateNewProjectKey(project._id);
-      console.log("Generating new project key...");
+      clearErrors();
+      const response = await projectService.generateNewProjectKey(
+        project._id,
+        project.projectKey
+      );
+      if (response.success) {
+        console.log(response);
+        // Send success toast
+
+        // update the project store
+        dispatch(
+          storeUpdateProject({
+            _id: project._id,
+            projectKey: response.data.projectKey,
+          })
+        );
+
+        // reset the form values
+        reset({
+          projectId: project._id,
+          projectKey: response.data.projectKey,
+        });
+      }
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
     <section className="bg-bg-2 w-full flex flex-col justify-between items-center 2xl:gap-35 gap-25 p-26 2xl:p-40 rounded-12 2xl:rounded-16">
-      {/* Setting title and input container */}
-      <div className="w-full flex flex-row justify-between items-stretch gap-30 2xl:gap-40">
-        {/* Title and Description */}
-        <div className="w-1/2 flex flex-col justify-start items-start gap-0">
-          <p className="text-20 2xl:text-24 font-medium">Project Details</p>
-          <p className="text-12 2xl:text-18 text-white/50 mb-auto">
-            All the authentication services on your web application will be
-            accessed using these credentials
-          </p>
-          <NotificationLabel text="If you suspect your project has been compromised, change the Project Key immediately" />
-        </div>
-        {/* Input Components */}
-        <div className="w-1/2 flex flex-col justify-start items-start gap-10">
-          <Input
-            disabled
-            additionalStyle="text-14 2xl:text-18"
-            widthStyle="w-full"
-            name="projectId"
-            register={register}
-            label="Project ID"
-            labelStyle="text-14 2xl:text-18"
-            type="text"
-            icon={FiCopy}
-            iconOnClick={() => navigator.clipboard.writeText(project._id)}
-          />
-          <Input
-            disabled
-            additionalStyle="text-14 2xl:text-18"
-            widthStyle="w-full"
-            name="projectKey"
-            register={register}
-            label="Project Key"
-            labelStyle="text-14 2xl:text-18"
-            type="text"
-            icon={FiCopy}
-            iconOnClick={() =>
-              navigator.clipboard.writeText(project.projectKey)
-            }
-          />
-        </div>
-      </div>
+      {isLoading ? (
+        <Loader2 className="w-10 h-10 animate-spin" />
+      ) : (
+        <>
+          {/* Setting title and input container */}
+          <div className="w-full flex flex-row justify-between items-stretch gap-30 2xl:gap-40">
+            {/* Title and Description */}
+            <div className="w-1/2 flex flex-col justify-start items-start gap-0">
+              <p className="text-20 2xl:text-24 font-medium">
+                Project Credentials
+              </p>
+              <p className="text-12 2xl:text-18 text-white/50 mb-auto">
+                All the authentication services on your web application will be
+                accessed using these credentials
+              </p>
+              <NotificationLabel text="If you suspect your project has been compromised, change the Project Key immediately" />
+            </div>
+            {/* Input Components */}
+            <div className="w-1/2 flex flex-col justify-start items-start gap-10">
+              <Input
+                disabled
+                additionalStyle="text-14 2xl:text-18"
+                widthStyle="w-full"
+                name="projectId"
+                register={register}
+                label="Project ID"
+                labelStyle="text-14 2xl:text-18"
+                type="text"
+                icon={FiCopy}
+                iconOnClick={() => navigator.clipboard.writeText(project._id)}
+              />
+              <Input
+                disabled
+                additionalStyle="text-14 2xl:text-18"
+                widthStyle="w-full"
+                name="projectKey"
+                register={register}
+                label="Project Key"
+                labelStyle="text-14 2xl:text-18"
+                type="text"
+                icon={FiCopy}
+                iconOnClick={() =>
+                  navigator.clipboard.writeText(project.projectKey)
+                }
+              />
+            </div>
+          </div>
 
-      {/* Action Button */}
-      <div className="w-full flex flex-row justify-end items-center gap-10">
-        <ActionBtn
-          type="submit"
-          text="Generate New Project Key"
-          onClick={handleSubmit(generateNewProjectKey)}
-          className="px-20 py-10 2xl:px-35 2xl:py-16 text-14 2xl:text-18 border-[0.5px] 2xl:border-[1px] border-white text-white"
-        />
-      </div>
+          {/* Action Button */}
+          <div className="w-full flex flex-row justify-end items-center gap-10">
+            <ActionBtn
+              type="submit"
+              text="Generate New Project Key"
+              onClick={handleSubmit(generateNewProjectKey)}
+              className="px-20 py-10 2xl:px-35 2xl:py-16 text-14 2xl:text-18 border-[0.5px] 2xl:border-[1px] border-white text-white"
+            />
+          </div>
+        </>
+      )}
     </section>
   );
 };

@@ -1,6 +1,6 @@
 "use client";
 
-import { DetailsCard } from "@/components/cards/project-setting-card";
+import { CredentialsCard } from "@/components/cards/project-setting-card";
 import ProjectNavbar from "@/components/navbars/project-navbar";
 import Protected from "@/components/protected";
 import { getProjectById } from "@/store/project/project.slice";
@@ -15,7 +15,7 @@ const Overview = () => {
   );
   return (
     <section className="w-full flex flex-col justify-start items-start 2xl:gap-40 gap-20">
-      <DetailsCard project={project!} />
+      <CredentialsCard project={project!} />
     </section>
   );
 };

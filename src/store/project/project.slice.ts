@@ -37,6 +37,7 @@ const projectSlice = createSlice({
       state,
       action: PayloadAction<{
         _id: string;
+        projectKey?: string;
         appName?: string;
         appEmail?: string;
         config?: Partial<IProjectConfig>;
@@ -54,6 +55,9 @@ const projectSlice = createSlice({
         }
         if (action.payload.appEmail) {
           state.projects[index].appEmail = action.payload.appEmail;
+        }
+        if (action.payload.projectKey) {
+          state.projects[index].projectKey = action.payload.projectKey;
         }
 
         // Update config if provided
