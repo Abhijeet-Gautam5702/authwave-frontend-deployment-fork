@@ -1,10 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { useParams } from "next/navigation";
+import { useParams, usePathname } from "next/navigation";
 import React from "react";
 
-/* Sidebar Component*/
 const Sidebar = () => {
   const params = useParams();
   return (
@@ -12,12 +11,12 @@ const Sidebar = () => {
       <SidebarNavItem
         productId={params.id as string}
         text="Overview"
-        path="/"
+        path="/overview"
       />
       <SidebarNavItem
         productId={params.id as string}
         text="Settings"
-        path="/settings"
+        path="/settings/overview"
       />
     </aside>
   );
@@ -35,10 +34,21 @@ const SidebarNavItem = ({
   text: string;
   path: string;
 }) => {
+  const pathname = usePathname();
+
+  let isActive = false;
+  if (path.includes("settings") && pathname.includes("settings")) {
+    isActive = true;
+  } else if (!path.includes("settings") && !pathname.includes("settings")) {
+    isActive = true;
+  }
+
   return (
     <Link
       href={`/console/project/${productId}${path}`}
-      className="w-full flex-center rounded-6 2xl:rounded-8 bg-bg-2 p-10 2xl:p-16 cursor-pointer text-14 2xl:text-20 text-white hover:bg-bg-2/80 transition-all duration-200"
+      className={`w-full flex-center rounded-4 2xl:rounded-8  p-10 2xl:p-16 cursor-pointer text-14 2xl:text-20 text-white hover:bg-bg-2/80 transition-all duration-200 ${
+        isActive ? "bg-bg-2" : ""
+      }`}
     >
       {text}
     </Link>

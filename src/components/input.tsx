@@ -45,13 +45,18 @@ const Input = ({
       className={`${widthStyle} flex flex-col items-start gap-8 2xl:gap-12 transition-all duration-300`}
     >
       <div className="w-full flex flex-col justify-start items-start 2xl:gap-2">
-        {label && <label className={`text-white ${labelStyle}`}>{label}</label>}
+        {label && (
+          <label htmlFor={name} className={`text-white ${labelStyle}`}>
+            {label}
+          </label>
+        )}
         {subText && (
           <p className={`text-white/50 ${subTextStyle}`}>{subText}</p>
         )}
       </div>
       <div className="w-full flex flex-row justify-start items-center gap-12 2xl:gap-20">
         <input
+          id={name}
           type={type}
           disabled={disabled}
           placeholder={placeholder}

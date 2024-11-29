@@ -26,7 +26,6 @@ const SettingsLayout = ({ children }: { children: React.ReactNode }) => {
   );
 
   const projects = useSelector((state: RootState) => state.project.projects);
-  console.log(projects);
 
   useEffect(() => {
     if (projects.length > 0) {
