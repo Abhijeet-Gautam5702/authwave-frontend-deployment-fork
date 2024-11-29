@@ -78,7 +78,7 @@ const Input = ({
       </div>
       {/* Error Message */}
       {error && (
-        <span className="w-full bg-danger-2/10 text-12 2xl:text-18 self-start text-danger-1/60 font-medium rounded-8 2xl:rounded-12 p-12 2xl:p-18 transition-all duration-300 tracking-wider">
+        <span className="w-full bg-danger-2/10 text-12 2xl:text-18 self-start text-danger-1/70 font-normal rounded-8 2xl:rounded-12 p-12 2xl:p-18 transition-all duration-300 tracking-wider">
           {error}
         </span>
       )}

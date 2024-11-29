@@ -134,6 +134,46 @@ class ProjectService {
       throw error.response.data as IApiError;
     }
   };
+
+  public updateAppName = async (
+    projectId: string,
+    projectKey: string,
+    appName: string
+  ) => {
+    try {
+      const response = await axios.put(
+        `${AUTHWAVE_BASE_URL}/project/update/app-name`,
+        { appName },
+        {
+          withCredentials: true,
+          headers: { "project-id": projectId, "project-key": projectKey },
+        }
+      );
+      return response.data as IApiResponse;
+    } catch (error: any) {
+      throw error.response.data as IApiError;
+    }
+  };
+
+  public updateAppEmail = async (
+    projectId: string,
+    projectKey: string,
+    appEmail: string
+  ) => {
+    try {
+      const response = await axios.put(
+        `${AUTHWAVE_BASE_URL}/project/update/app-email`,
+        { appEmail },
+        {
+          withCredentials: true,
+          headers: { "project-id": projectId, "project-key": projectKey },
+        }
+      );
+      return response.data as IApiResponse;
+    } catch (error: any) {
+      throw error.response.data as IApiError;
+    }
+  };
 }
 
 export const projectService = new ProjectService();

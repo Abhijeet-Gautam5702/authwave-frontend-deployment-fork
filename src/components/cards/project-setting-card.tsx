@@ -201,7 +201,9 @@ export const SecuritySettingCard = ({ project }: SecurityCardProps) => {
   );
 };
 
-/* PROJECT SETTING OVERVIEW CARDS */
+/* --------------- PROJECT SETTING OVERVIEW CARDS --------------- */
+
+// CREDENTIALS CARD
 interface CredentialsCardProps {
   project: Project;
 }
@@ -308,6 +310,200 @@ export const CredentialsCard = ({ project }: CredentialsCardProps) => {
               type="submit"
               text="Generate New Project Key"
               onClick={handleSubmit(generateNewProjectKey)}
+              className="px-20 py-10 2xl:px-35 2xl:py-16 text-14 2xl:text-18 border-[0.5px] 2xl:border-[1px] border-white text-white"
+            />
+          </div>
+        </>
+      )}
+    </section>
+  );
+};
+
+// DETAILS CARD
+interface DetailsCardProps {
+  project: Project;
+}
+export const DetailsCard = ({ project }: DetailsCardProps) => {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const dispatch = useDispatch();
+  const {
+    register,
+    formState: { errors },
+    clearErrors,
+    reset,
+    handleSubmit,
+  } = useForm<{
+    projectName: string;
+    appName: string;
+    appEmail: string;
+  }>({
+    defaultValues: {
+      projectName: project.projectName,
+      appName: project.appName,
+      appEmail: project.appEmail,
+    },
+  });
+
+  const updateDetails = async (data: { appName: string; appEmail: string }) => {
+    clearErrors();
+    setIsLoading(true);
+    try {
+      if (data.appName !== project.appName) {
+        const response = await projectService.updateAppName(
+          project._id,
+          project.projectKey,
+          data.appName
+        );
+        if (response.success) {
+          console.log(response);
+
+          // Send success toast notification
+
+          // Update the project-store
+          dispatch(
+            storeUpdateProject({
+              _id: project._id,
+              appName: data.appName,
+            })
+          );
+
+          // reset the form
+          reset({
+            projectName: project.projectName,
+            appName: data.appName,
+            appEmail: project.appEmail,
+          });
+        }
+      }
+      if (data.appEmail !== project.appEmail) {
+        const response = await projectService.updateAppEmail(
+          project._id,
+          project.projectKey,
+          data.appEmail
+        );
+        if (response.success) {
+          console.log(response);
+
+          // Send success toast notification
+
+          // Update the project-store
+          dispatch(
+            storeUpdateProject({
+              _id: project._id,
+              appEmail: data.appEmail,
+            })
+          );
+
+          // reset the form
+          reset({
+            projectName: project.projectName,
+            appName: project.appName,
+            appEmail: data.appEmail,
+          });
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
+    return;
+  };
+
+  return (
+    <section className="bg-bg-2 w-full flex flex-col justify-between items-center 2xl:gap-35 gap-25 p-26 2xl:p-40 rounded-12 2xl:rounded-16">
+      {isLoading ? (
+        <Loader2 className="w-10 h-10 animate-spin" />
+      ) : (
+        <>
+          {/* Setting title and input container */}
+          <div className="w-full flex flex-row justify-between items-stretch gap-30 2xl:gap-40">
+            {/* Title and Description */}
+            <div className="w-1/2 flex flex-col justify-start items-start gap-0">
+              <p className="text-20 2xl:text-24 font-medium">Details</p>
+              <p className="text-12 2xl:text-18 text-white/50 mb-auto">
+                You can change the App Name and Email here. App Name and Email
+                are used in email-related services.
+              </p>
+              <NotificationLabel text="Please do not change the App Name/Email very frequently as it makes it difficult for us to keep records" />
+            </div>
+            {/* Input Components */}
+            <div className="w-1/2 flex flex-col justify-start items-start gap-10">
+              <Input
+                disabled
+                additionalStyle="text-14 2xl:text-18"
+                widthStyle="w-full"
+                name="projectName"
+                register={register}
+                label="Project name"
+                labelStyle="text-14 2xl:text-18"
+                type="text"
+                icon={FiCopy}
+                iconOnClick={() =>
+                  navigator.clipboard.writeText(project.projectName)
+                }
+              />
+              <Input
+                additionalStyle="text-14 2xl:text-18"
+                widthStyle="w-full"
+                name="appName"
+                register={register}
+                registerOptions={{
+                  required: "App name is required",
+                  minLength: {
+                    value: 3,
+                    message: "App name must be at least 3 characters long",
+                  },
+                  maxLength: {
+                    value: 30,
+                    message: "App name must be at most 30 characters long",
+                  },
+                  pattern: {
+                    value: /^[a-zA-Z-]+(?:\s[a-zA-Z-]+)*[a-zA-Z-]+$/,
+                    message:
+                      "App name can only contain letters, hyphens, and single spaces between words, with no whitespace at the start or end. No numbers or special characters allowed.",
+                  },
+                }}
+                error={errors.appName?.message}
+                label="App Name"
+                labelStyle="text-14 2xl:text-18"
+                type="text"
+                icon={FiCopy}
+                iconOnClick={() =>
+                  navigator.clipboard.writeText(project.appName)
+                }
+              />
+              <Input
+                additionalStyle="text-14 2xl:text-18"
+                widthStyle="w-full"
+                name="appEmail"
+                register={register}
+                registerOptions={{
+                  required: "Email is required",
+                  pattern: {
+                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                    message: "Invalid email address",
+                  },
+                }}
+                error={errors.appEmail?.message}
+                label="App Email"
+                labelStyle="text-14 2xl:text-18"
+                type="text"
+                icon={FiCopy}
+                iconOnClick={() =>
+                  navigator.clipboard.writeText(project.appEmail)
+                }
+              />
+            </div>
+          </div>
+
+          {/* Action Button */}
+          <div className="w-full flex flex-row justify-end items-center gap-10">
+            <ActionBtn
+              type="submit"
+              text="Update"
+              onClick={handleSubmit(updateDetails)}
               className="px-20 py-10 2xl:px-35 2xl:py-16 text-14 2xl:text-18 border-[0.5px] 2xl:border-[1px] border-white text-white"
             />
           </div>
