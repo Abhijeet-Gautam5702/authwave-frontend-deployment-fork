@@ -90,10 +90,16 @@ export const AccountSettingDangerCard = ({
 
       {/* Action Button */}
       <div className="w-full flex flex-row justify-end items-end gap-10">
-        <DangerActionBtn
+        {/* <DangerActionBtn
           text={buttonText!}
           className="px-20 py-8 2xl:px-35 2xl:py-14 text-14 2xl:text-18 border-[1px] 2xl:border-[2px] font-semibold border-danger-2 text-danger-2"
           onClick={buttonClick}
+        /> */}
+        <ActionBtn
+          type="button"
+          text={buttonText!}
+          onClick={buttonClick}
+          className="px-20 py-10 2xl:px-35 2xl:py-16 text-14 2xl:text-18 border-[0.5px] 2xl:border-[1px] border-danger-1 text-danger-1"
         />
       </div>
     </section>

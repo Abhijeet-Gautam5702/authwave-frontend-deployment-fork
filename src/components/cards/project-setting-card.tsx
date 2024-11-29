@@ -5,16 +5,22 @@ import ActionBtn from "@/components/buttons/action-btn";
 import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import { projectService } from "@/services/project.service";
-import { Project, storeUpdateProject } from "@/store/project/project.slice";
+import {
+  Project,
+  storeDeleteProject,
+  storeUpdateProject,
+} from "@/store/project/project.slice";
 import NotificationLabel from "../labels/notification-label";
 import { FiCopy } from "react-icons/fi";
 import { useState } from "react";
 import { Loader2 } from "lucide-react";
+import ToggleSwitch from "../toggle-swtich";
+import { AccountSettingDangerCard } from "./account-setting-card";
+import { useRouter, usePathname } from "next/navigation";
 
 interface SecurityCardProps {
   project: Project;
 }
-
 export const SecuritySettingCard = ({ project }: SecurityCardProps) => {
   const dispatch = useDispatch();
   const {
@@ -356,8 +362,6 @@ export const DetailsCard = ({ project }: DetailsCardProps) => {
           data.appName
         );
         if (response.success) {
-          console.log(response);
-
           // Send success toast notification
 
           // Update the project-store
@@ -383,8 +387,6 @@ export const DetailsCard = ({ project }: DetailsCardProps) => {
           data.appEmail
         );
         if (response.success) {
-          console.log(response);
-
           // Send success toast notification
 
           // Update the project-store
@@ -510,5 +512,174 @@ export const DetailsCard = ({ project }: DetailsCardProps) => {
         </>
       )}
     </section>
+  );
+};
+// LOGIN METHODS CARD
+interface LoginMethodsCardProps {
+  project: Project;
+}
+export const LoginMethodsCard = ({ project }: LoginMethodsCardProps) => {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const dispatch = useDispatch();
+  const {
+    register,
+    formState: { errors },
+    clearErrors,
+    reset,
+    handleSubmit,
+    watch,
+  } = useForm<{
+    emailPassword: boolean;
+    OTPonEmail: boolean;
+    magicURLonEmail: boolean;
+  }>({
+    defaultValues: {
+      emailPassword: project.config.loginMethods.emailPassword,
+      OTPonEmail: project.config.loginMethods.OTPonEmail || false,
+      magicURLonEmail: project.config.loginMethods.magicURLonEmail || false,
+    },
+  });
+
+  const updateLoginMethods = async (data: {
+    emailPassword: boolean;
+    OTPonEmail: boolean;
+    magicURLonEmail: boolean;
+  }) => {
+    try {
+      clearErrors();
+      setIsLoading(true);
+      const response = await projectService.updateLoginMethods(
+        project._id,
+        project.projectKey,
+        data
+      );
+      if (response.success) {
+        // Send success toast notification
+
+        // Update the project-store
+        dispatch(
+          storeUpdateProject({
+            _id: project._id,
+            config: { loginMethods: data },
+          })
+        );
+
+        // reset the form to new values
+        reset({
+          emailPassword: data.emailPassword,
+          OTPonEmail: data.OTPonEmail,
+          magicURLonEmail: data.magicURLonEmail,
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  return (
+    <section className="bg-bg-2 w-full flex flex-col justify-between items-center 2xl:gap-35 gap-25 p-26 2xl:p-40 rounded-12 2xl:rounded-16">
+      {isLoading ? (
+        <Loader2 className="w-10 h-10 animate-spin" />
+      ) : (
+        <>
+          {/* Setting title and input container */}
+          <div className="w-full flex flex-row justify-between items-stretch gap-30 2xl:gap-40">
+            {/* Title and Description */}
+            <div className="w-1/2 flex flex-col justify-start items-start gap-0">
+              <p className="text-20 2xl:text-24 font-medium">Login Methods</p>
+              <p className="text-12 2xl:text-18 text-white/50 mb-auto">
+                Choose from the various authentication methods you want to add
+                to your project.
+              </p>
+            </div>
+            {/* Toggle-switch container */}
+            <div className="w-1/2 flex flex-col justify-start items-start gap-10 2xl:gap-16">
+              {/* Toggle-switch: Email and Password */}
+              <ToggleSwitch
+                disabled
+                register={register}
+                name="emailPassword"
+                label="Email and Password"
+              />
+
+              {/* Toggle-switch: OTP on Email */}
+              <ToggleSwitch
+                register={register}
+                name="OTPonEmail"
+                label="OTP on Email"
+              />
+
+              {/* Toggle-switch: Magic URL on Email */}
+              <ToggleSwitch
+                register={register}
+                name="magicURLonEmail"
+                label="Magic URL on Email"
+              />
+            </div>
+          </div>
+
+          {/* Action Button */}
+          <div className="w-full flex flex-row justify-end items-center gap-10">
+            <ActionBtn
+              type="submit"
+              text="Update"
+              onClick={handleSubmit(updateLoginMethods)}
+              className="px-20 py-10 2xl:px-35 2xl:py-16 text-14 2xl:text-18 border-[0.5px] 2xl:border-[1px] border-white text-white"
+            />
+          </div>
+        </>
+      )}
+    </section>
+  );
+};
+
+// DELETE PROJECT CARD
+interface DeleteProjectCardProps {
+  project: Project;
+}
+export const DeleteProjectCard = ({ project }: DeleteProjectCardProps) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const dispatch = useDispatch();
+  const router = useRouter();
+  const projectId = project._id;
+
+  const deleteProject = async () => {
+    try {
+      setIsLoading(true);
+      const response = await projectService.deleteProject(projectId);
+      if (response.success) {
+        console.log(response);
+        // redirect to projects page
+        router.push("/console");
+
+        // delete the project from the project-store
+        /* 
+          Since the other components are using the resux-store data to render the content, deleting it first will cause the app to crash. So, first navigate out of this project-page and then delete the project from the store.
+          
+          Also, simply putting the dispatch call after the navigation call will not work as the navigation call takes some time to complete. So, we use a setTimeout to delay the dispatch call.
+        */
+        setTimeout(() => {
+          dispatch(storeDeleteProject(projectId));
+        }, 100);
+
+        // Send success toast notification
+      }
+    } catch (error) {
+      console.log(error);
+      setIsLoading(false);
+    } finally {
+    }
+  };
+
+  return (
+    <AccountSettingDangerCard
+      title="Delete Project"
+      description="This action will remove all of your project data and all users enrolled in the project. This action cannot be reversed."
+      buttonText="DELETE PROJECT"
+      buttonClick={deleteProject}
+    />
   );
 };

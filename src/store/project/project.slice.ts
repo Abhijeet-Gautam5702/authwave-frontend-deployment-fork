@@ -74,7 +74,7 @@ const projectSlice = createSlice({
       state.projects = state.projects.filter(
         (project) => project._id !== action.payload
       );
-      Persist.projects.remove(action.payload); // remove project from session-storage
+      Persist.projects.set(state.projects); // update projects in session-storage
     },
     storeSetProjects: (state, action: PayloadAction<Project[]>) => {
       state.projects = action.payload;
