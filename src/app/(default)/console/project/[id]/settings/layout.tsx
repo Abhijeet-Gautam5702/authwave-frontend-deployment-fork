@@ -15,7 +15,7 @@ const SettingsLayout = ({ children }: { children: React.ReactNode }) => {
 
   const navItems = [
     { name: "Overview", href: "/settings/overview" },
-    { name: "Email Templates", href: "/settings/email-templates" },
+    // { name: "Email Templates", href: "/settings/email-templates" }, // !!! FEATURE NOT READY FOR PRODUCTION !!!
     { name: "Security", href: "/settings/security" },
   ];
 

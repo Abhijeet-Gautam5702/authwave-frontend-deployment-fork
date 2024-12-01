@@ -9,7 +9,7 @@ export default function DefaultLayout({
   return (
     <>
       <Header />
-      <main className="grow flex flex-col justify-center items-center text-white">
+      <main className="grow min-h-screen flex flex-col justify-center items-center text-white">
         {children}
       </main>
       <Footer />

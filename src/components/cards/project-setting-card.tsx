@@ -17,7 +17,10 @@ import { Loader2 } from "lucide-react";
 import ToggleSwitch from "../toggle-swtich";
 import { AccountSettingDangerCard } from "./account-setting-card";
 import { useRouter, usePathname } from "next/navigation";
+import Textarea from "@/components/textarea";
+import { DefaultEmailTemplate } from "@/utils/default-email-template";
 
+/* --------------- PROJECT SETTING SECURITY CARD --------------- */
 interface SecurityCardProps {
   project: Project;
 }
@@ -36,7 +39,6 @@ export const SecuritySettingCard = ({ project }: SecurityCardProps) => {
     },
   });
 
-  /* ------------ Reset Security Limits ------------ */
   const resetLimits = async () => {
     try {
       clearErrors();
@@ -76,7 +78,6 @@ export const SecuritySettingCard = ({ project }: SecurityCardProps) => {
     }
   };
 
-  /* ------------ Update Security Limits ------------ */
   const updateLimits = async (data: {
     userLimit: number;
     userSessionLimit: number;
@@ -681,5 +682,158 @@ export const DeleteProjectCard = ({ project }: DeleteProjectCardProps) => {
       buttonText="DELETE PROJECT"
       buttonClick={deleteProject}
     />
+  );
+};
+
+/* --------------- PROJECT SETTING EMAIL-TEMPLATE CARDS --------------- */
+
+interface EmailTemplateCardProps {
+  project: Project;
+  emailTemplate: {
+    subject: string;
+    emailMessage: string;
+  };
+}
+export const EmailTemplateCard = ({
+  project,
+  emailTemplate,
+}: EmailTemplateCardProps) => {
+  const router = useRouter();
+  const dispatch = useDispatch();
+  const {
+    register,
+    handleSubmit,
+    clearErrors,
+    reset,
+    formState: { errors },
+  } = useForm<{
+    senderName: string;
+    senderEmail: string;
+    subject: string;
+    emailMessage: string;
+  }>({
+    defaultValues: {
+      senderName: project.appName,
+      senderEmail: project.appEmail,
+      subject: emailTemplate.subject,
+      emailMessage: emailTemplate.emailMessage,
+    },
+  });
+
+  return (
+    <section className="bg-bg-2 w-full flex flex-col justify-between items-center 2xl:gap-30 gap-20 p-26 2xl:p-40 rounded-12 2xl:rounded-16">
+      {/* Setting title and input container */}
+      <div className="w-full flex flex-row justify-between items-stretch gap-30 2xl:gap-40">
+        {/* Title and Description */}
+        <div className="w-2/5 flex flex-col justify-start items-start gap-0">
+          <p className="text-20 2xl:text-24 font-medium">User Verification</p>
+          <p className="text-12 2xl:text-18 text-white/50 mb-auto">
+            Send a verification email to the users signing in using email and
+            password.
+          </p>
+        </div>
+
+        {/* Input Components */}
+        <div className="w-3/5 flex flex-col justify-start items-start gap-10">
+          <Input
+            name="senderName"
+            placeholder="Enter sender name"
+            additionalStyle="text-14 2xl:text-18"
+            widthStyle="w-full"
+            register={register}
+            label="Sender Name"
+            labelStyle="text-14 2xl:text-18"
+            type="text"
+            registerOptions={{
+              required: "Sender name is required",
+              minLength: {
+                value: 3,
+                message: "Sender name must be at least 3 characters long",
+              },
+              maxLength: {
+                value: 30,
+                message: "Sender name must be at most 30 characters long",
+              },
+            }}
+            error={errors.senderName?.message}
+          />
+          <Input
+            name="senderEmail"
+            additionalStyle="text-14 2xl:text-18"
+            widthStyle="w-full"
+            register={register}
+            label="Sender Email"
+            labelStyle="text-14 2xl:text-18"
+            type="text"
+            registerOptions={{
+              required: "Sender email is required",
+              pattern: {
+                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                message: "Invalid email address",
+              },
+            }}
+            error={errors.senderEmail?.message}
+          />
+          <Input
+            name="subject"
+            additionalStyle="text-14 2xl:text-18"
+            widthStyle="w-full"
+            register={register}
+            label="Subject"
+            labelStyle="text-14 2xl:text-18"
+            type="text"
+            registerOptions={{
+              required: "Subject is required",
+              minLength: {
+                value: 3,
+                message: "Subject must be at least 3 characters long",
+              },
+              maxLength: {
+                value: 30,
+                message: "Subject must be at most 30 characters long",
+              },
+            }}
+            error={errors.subject?.message}
+          />
+          <Textarea
+            name="emailMessage"
+            placeholder="Enter email message"
+            additionalStyle="text-14 2xl:text-18"
+            widthStyle="w-full"
+            register={register}
+            label="Email Message"
+            labelStyle="text-14 2xl:text-18"
+            registerOptions={{
+              required: "Email message is required",
+              minLength: {
+                value: 100,
+                message: "Email message must be at least 100 characters long",
+              },
+              maxLength: {
+                value: 1000,
+                message: "Email message must be at most 1000 characters long",
+              },
+            }}
+            error={errors.emailMessage?.message}
+          />
+        </div>
+      </div>
+
+      {/* Action Button */}
+      <div className="w-full flex flex-row justify-between items-end gap-10">
+        <p
+          onClick={handleSubmit(() => {})}
+          className="text-12 2xl:text-16 text-white underline cursor-pointer"
+        >
+          Reset to default
+        </p>
+        <ActionBtn
+          type="submit"
+          text="Update"
+          onClick={handleSubmit(() => {})}
+          className="px-20 py-8 2xl:px-35 2xl:py-14 text-14 2xl:text-18 border-[0.5px] 2xl:border-[1px] border-white text-white"
+        />
+      </div>
+    </section>
   );
 };
