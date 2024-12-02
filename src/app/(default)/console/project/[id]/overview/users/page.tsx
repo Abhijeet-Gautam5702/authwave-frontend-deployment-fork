@@ -2,12 +2,13 @@
 
 import ActionBtn from "@/components/buttons/action-btn";
 import Searchbar from "@/components/searchbar";
+import UserTable from "@/components/tables/user-table";
+import { projectService } from "@/services/project.service";
 import { getProjectById } from "@/store/project/project.slice";
 import { RootState } from "@/store/store";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { IoIosAddCircleOutline } from "react-icons/io";
 import { useSelector } from "react-redux";
 
 const UsersPage = () => {
@@ -36,7 +37,22 @@ const UsersPage = () => {
   };
 
   const getUsers = async () => {
-    console.log("Getting users");
+    try {
+      const response = await projectService.getUsers(
+        params.id as string,
+        project?.projectKey as string,
+        {
+          page: 1,
+          itemLimit: 10,
+        }
+      );
+      if (response.success) {
+        console.log(response); // debugging
+        setUsers(response.data.users);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
@@ -60,7 +76,9 @@ const UsersPage = () => {
         />
       </div>
       {/* Users Display */}
-      <div className="h-[300px] rounded-8 2xl:rounded-10 bg-bg-2 w-full flex flex-col justify-start items-start gap-20"></div>
+      <div className="min-h-[300px] rounded-8 2xl:rounded-10  bg-bg-2 w-full flex flex-col justify-start items-start gap-20">
+        <UserTable users={users} />
+      </div>
     </section>
   );
 };

@@ -1,5 +1,6 @@
 import { AUTHWAVE_BASE_URL } from "@/constants";
 import { IApiError, IApiResponse } from "@/types/response.types";
+import { QueryBuilder } from "@/utils/query-builder";
 import axios from "axios";
 
 /* ------------ Interfaces ------------ */
@@ -203,6 +204,32 @@ class ProjectService {
         `${AUTHWAVE_BASE_URL}/project/delete/${projectId}`,
         {
           withCredentials: true,
+        }
+      );
+      return response.data as IApiResponse;
+    } catch (error: any) {
+      throw error.response.data as IApiError;
+    }
+  };
+
+  public getUsers = async (
+    projectId: string,
+    projectKey: string,
+    query: {
+      page?: number;
+      itemLimit?: number;
+      startDate?: string;
+      endDate?: string;
+    }
+  ) => {
+    try {
+      let queryString = QueryBuilder.paginationQuery(query);
+
+      const response = await axios.get(
+        `${AUTHWAVE_BASE_URL}/admin/get-all-users?${queryString}`,
+        {
+          withCredentials: true,
+          headers: { "project-id": projectId, "project-key": projectKey },
         }
       );
       return response.data as IApiResponse;

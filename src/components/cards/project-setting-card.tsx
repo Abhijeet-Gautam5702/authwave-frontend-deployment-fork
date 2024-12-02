@@ -18,7 +18,6 @@ import ToggleSwitch from "../toggle-swtich";
 import { AccountSettingDangerCard } from "./account-setting-card";
 import { useRouter, usePathname } from "next/navigation";
 import Textarea from "@/components/textarea";
-import { DefaultEmailTemplate } from "@/utils/default-email-template";
 
 /* --------------- PROJECT SETTING SECURITY CARD --------------- */
 interface SecurityCardProps {
