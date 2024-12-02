@@ -1,4 +1,4 @@
-import { Loader } from "lucide-react";
+import { Loader as LoaderIcon } from "lucide-react";
 import Link from "next/link";
 
 interface PrimaryBtnProps
@@ -24,8 +24,12 @@ const PrimaryBtn = ({
   if (href) {
     return (
       <Link href={href}>
-        <button className={btnClass} {...props}>
-          {loading ? <Loader /> : text}
+        <button
+          disabled={loading}
+          className={`flex-center ${btnClass}`}
+          {...props}
+        >
+          {loading ? <LoaderIcon /> : text}
         </button>
       </Link>
     );
@@ -33,8 +37,13 @@ const PrimaryBtn = ({
 
   // Return a clickable type button when no href is provided
   return (
-    <button type={type} className={btnClass} {...props}>
-      {loading ? <Loader /> : text}
+    <button
+      disabled={loading}
+      type={type}
+      className={` flex-center ${btnClass}`}
+      {...props}
+    >
+      {loading ? <LoaderIcon /> : text}
     </button>
   );
 };

@@ -17,6 +17,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
+import useLoader from "@/components/loader";
 
 export interface IAccountFormData {
   name: string;
@@ -37,11 +38,13 @@ const AccountPage = () => {
   });
 
   const [loading, setLoading] = useState(false);
+  const { startLoading, stopLoading } = useLoader();
 
   /* --------- Form Submit Handlers --------- */
   const submitName = async (data: Partial<IAccountFormData>) => {
     try {
-      setLoading(true);
+      // setLoading(true);
+      startLoading();
       const response = await adminAuthService.updateAdminData({
         name: data.name,
       });
@@ -59,13 +62,15 @@ const AccountPage = () => {
     } catch (error) {
       console.log(error);
     } finally {
-      setLoading(false);
+      // setLoading(false);
+      stopLoading();
     }
   };
 
   const submitEmail = async (data: Partial<IAccountFormData>) => {
     try {
-      setLoading(true);
+      // setLoading(true);
+      startLoading();
       const response = await adminAuthService.updateAdminData({
         email: data.email,
       });
@@ -83,13 +88,15 @@ const AccountPage = () => {
     } catch (error) {
       console.log(error);
     } finally {
-      setLoading(false);
+      // setLoading(false);
+      stopLoading();
     }
   };
 
   const submitPassword = async (data: Partial<IAccountFormData>) => {
     try {
-      setLoading(true);
+      // setLoading(true);
+      startLoading();
       const response = await adminAuthService.updateAdminData({
         password: data.password,
       });
@@ -105,7 +112,8 @@ const AccountPage = () => {
     } catch (error) {
       console.log(error);
     } finally {
-      setLoading(false);
+      // setLoading(false);
+      stopLoading();
     }
   };
 
@@ -113,7 +121,8 @@ const AccountPage = () => {
 
   const deleteAccount = async () => {
     try {
-      setLoading(true);
+      // setLoading(true);
+      startLoading();
       const response = await adminAuthService.deleteAccount();
       if (response.success) {
         // Show success toast
@@ -126,13 +135,15 @@ const AccountPage = () => {
     } catch (error) {
       console.log(error);
     } finally {
-      setLoading(false);
+      // setLoading(false);
+      stopLoading();
     }
   };
 
   const deleteAllProjects = async () => {
     try {
-      setLoading(true);
+      // setLoading(true);
+      startLoading();
       const response = await projectService.deleteAllProjects();
       if (response.success) {
         // Show success toast
@@ -145,14 +156,16 @@ const AccountPage = () => {
     } catch (error) {
       console.log(error);
     } finally {
-      setLoading(false);
+      // setLoading(false);
+      stopLoading();
     }
   };
 
   /* --------- Admin Logout Function --------- */
   const adminLogout = async () => {
     try {
-      setLoading(true);
+      // setLoading(true);
+      startLoading();
       const response = await adminAuthService.logout();
       if (response.success) {
         dispatch(storeLogout());
@@ -161,13 +174,14 @@ const AccountPage = () => {
     } catch (error) {
       console.log(error);
     } finally {
-      setLoading(false);
+      // setLoading(false);
+      stopLoading();
     }
   };
 
-  if (loading) {
-    return <Loader2 className="w-10 h-10 animate-spin" />;
-  }
+  // if (loading) {
+  //   return <Loader2 className="w-10 h-10 animate-spin" />;
+  // }
 
   return (
     <div className="w-full grow  flex flex-col justify-start items-center gap-0 p-0">

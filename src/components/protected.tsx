@@ -1,14 +1,14 @@
 "use client";
 
 import { storeLogin } from "@/store/auth/auth.slice";
-import { getAdmin } from "@/app/(default)/page";
 import { RootState } from "@/store/store";
 import { useRouter, usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { projectService } from "@/services/project.service";
 import { storeSetProjects } from "@/store/project/project.slice";
 import Persist from "@/store/persist";
+import useLoader from "./loader";
 
 /*
     PROTECTED COMPONENT
@@ -26,6 +26,7 @@ const Protected = <P extends object>(
   // Create a protected component (which is essentially a function) and return it
   const ProtectedComponent = (props: P) => {
     const auth = useSelector((state: RootState) => state.auth);
+    const { startLoading, stopLoading } = useLoader();
 
     const dispatch = useDispatch();
     const router = useRouter();
@@ -49,9 +50,19 @@ const Protected = <P extends object>(
         dispatch(storeSetProjects(projectsFromLocalStorage));
       } else {
         (async () => {
-          const response = await projectService.getProjects();
-          if (response?.success) {
-            dispatch(storeSetProjects(response.data));
+          console.log("Fetching projects...");
+          try {
+            startLoading();
+            const response = await projectService.getProjects();
+            if (response?.success) {
+              dispatch(storeSetProjects(response.data));
+            }
+          } catch (error) {
+            console.log(error);
+          } finally {
+            // setTimeout(() => {
+              stopLoading();
+            // }, 1000);
           }
         })();
       }

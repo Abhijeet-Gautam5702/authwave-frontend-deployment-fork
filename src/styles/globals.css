@@ -6,12 +6,20 @@ body {
   background-color: var(--background);
 }
 
+/* Only for testing: Remove before deployment */
+.test-bg {
+  @apply bg-yellow-300;
+}
+.test-border {
+  @apply border-danger-1 border-[2px];
+}
+
 .active-text {
   @apply bg-gradient-to-r from-p-accent from-0% to-s-accent to-80% bg-clip-text text-transparent font-semibold;
 }
 
 .inactive-text {
-  @apply text-white font-thin 2xl:font-extralight;
+  @apply text-white font-normal;
 }
 
 .page-title {

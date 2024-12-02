@@ -1,29 +1,30 @@
 "use client";
 
+import useLoader from "@/components/loader";
 import { adminAuthService } from "@/services/admin-auth.service";
 import { storeLogin } from "@/store/auth/auth.slice";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 
-// Get the admin account details
-export const getAdmin = async () => {
-  try {
-    const response = await adminAuthService.getAccount();
-    return response;
-  } catch (error) {
-    console.log(error);
-  }
-};
-
 export default function Home() {
   const dispatch = useDispatch();
+  const { startLoading, stopLoading } = useLoader();
 
   // On Page Load => Log the admin into the store
   useEffect(() => {
     (async () => {
-      const response = await getAdmin();
-      if (response?.success) {
-        dispatch(storeLogin(response.data));
+      try {
+        startLoading();
+        const response = await adminAuthService.getAccount();
+        if (response?.success) {
+          dispatch(storeLogin(response.data));
+        }
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setTimeout(() => {
+          stopLoading();
+        }, 1000);
       }
     })();
   }, []);

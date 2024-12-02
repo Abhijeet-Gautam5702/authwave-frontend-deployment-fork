@@ -9,7 +9,7 @@ interface ProjectCardProps {
 const ProjectCard = ({ project }: ProjectCardProps) => {
   return (
     <Link
-      href={`/console/project/${project._id}/overview`}
+      href={`/console/project/${project._id}/overview/users`}
       className="w-[300px] 2xl:w-[420px] h-[150px] 2xl:h-[250px] bg-bg-2 rounded-8 2xl:rounded-12 p-20 2xl:p-30 flex flex-col items-start justify-between cursor-pointer hover:bg-bg-2/60 transition-all"
     >
       <div className="flex flex-col items-start justify-start gap-4 2xl:gap-6">

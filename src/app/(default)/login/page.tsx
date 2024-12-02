@@ -6,9 +6,11 @@ import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { adminAuthService } from "@/services/admin-auth.service";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { storeLogin } from "@/store/auth/auth.slice";
 import { useRouter } from "next/navigation";
+import useLoader from "@/components/loader";
+import { RootState } from "@/store/store";
 
 interface LoginFormInputs {
   email: string;
@@ -25,7 +27,7 @@ const LoginPage = () => {
   } = useForm<LoginFormInputs>({
     // TODO:Remove the default values when the production is ready
     defaultValues: {
-      email: "admin@admin.com",
+      email: "admin@authwave.com",
       password: "Test123456@",
     },
   });
@@ -35,13 +37,14 @@ const LoginPage = () => {
   const router = useRouter();
 
   const onSubmit = async (data: LoginFormInputs) => {
-    setLoading(true);
     try {
+      setLoading(true);
       const response = await adminAuthService.login(data);
       if (response.success) {
         console.log(response);
         // Dispatch an action to login
         dispatch(storeLogin(response.data));
+
         // Send a toast notification
 
         // Clear the form
@@ -58,88 +61,84 @@ const LoginPage = () => {
     }
   };
 
+  if (loading) {
+    return null;
+  }
+
   return (
-    <>
-      {!loading ? (
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-col items-center justify-center gap-20"
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="flex flex-col items-center justify-center gap-20"
+    >
+      {/* Email input */}
+      <div className="w-[350px] 2xl:w-[500px] flex flex-col items-center justify-center gap-10">
+        <Input
+          widthStyle="w-full"
+          label="Email"
+          placeholder="Enter your email"
+          type="email"
+          error={errors.email?.message}
+          register={register}
+          name="email"
+          registerOptions={{
+            required: "Email is required",
+            pattern: {
+              value: /^\S+@\S+\.\S+$/,
+              message: "Invalid email address",
+            },
+          }}
+        />
+        {errors.email?.message && (
+          <span className=" bg-danger-2/10 text-12 2xl:text-18 self-start text-danger-2 font-medium rounded-8 2xl:rounded-12 p-12 2xl:p-18">
+            {errors.email.message}
+          </span>
+        )}
+      </div>
+      {/* Password input */}
+      <div className="w-[350px] 2xl:w-[500px] flex flex-col items-center justify-center gap-10">
+        <Input
+          widthStyle="w-full"
+          label="Password"
+          placeholder="Enter your password"
+          type="password"
+          error={errors.password?.message}
+          register={register}
+          name="password"
+          registerOptions={{
+            required: "Password is required",
+            pattern: {
+              value:
+                /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,64}$/,
+              message:
+                "Password must contain at least 8 characters, one uppercase letter, one lowercase letter, one number and one special character (@$!%*?&)",
+            },
+          }}
+        />
+        {errors.password?.message && (
+          <span className=" bg-danger-2/10 text-12 2xl:text-18 self-start text-danger-2 font-medium rounded-8 2xl:rounded-12 p-12 2xl:p-18">
+            {errors.password.message}
+          </span>
+        )}
+      </div>
+      {/* Login button */}
+      <PrimaryBtn
+        text="Login"
+        type="submit"
+        className="w-[350px] 2xl:w-[500px]"
+        loading={loading}
+      />
+      {/* Sign up link */}
+      <div className="flex items-center gap-8 text-14 2xl:text-20">
+        <span className="text-white-1 font-thin">Do not have an account?</span>
+        <Link
+          href="/signup"
+          replace
+          className="text-white font-medium hover:text-p-accent"
         >
-          {/* Email input */}
-          <div className="w-[350px] 2xl:w-[500px] flex flex-col items-center justify-center gap-10">
-            <Input
-              widthStyle="w-full"
-              label="Email"
-              placeholder="Enter your email"
-              type="email"
-              error={errors.email?.message}
-              register={register}
-              name="email"
-              registerOptions={{
-                required: "Email is required",
-                pattern: {
-                  value: /^\S+@\S+\.\S+$/,
-                  message: "Invalid email address",
-                },
-              }}
-            />
-            {errors.email?.message && (
-              <span className=" bg-danger-2/10 text-12 2xl:text-18 self-start text-danger-2 font-medium rounded-8 2xl:rounded-12 p-12 2xl:p-18">
-                {errors.email.message}
-              </span>
-            )}
-          </div>
-          {/* Password input */}
-          <div className="w-[350px] 2xl:w-[500px] flex flex-col items-center justify-center gap-10">
-            <Input
-              widthStyle="w-full"
-              label="Password"
-              placeholder="Enter your password"
-              type="password"
-              error={errors.password?.message}
-              register={register}
-              name="password"
-              registerOptions={{
-                required: "Password is required",
-                pattern: {
-                  value:
-                    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,64}$/,
-                  message:
-                    "Password must contain at least 8 characters, one uppercase letter, one lowercase letter, one number and one special character (@$!%*?&)",
-                },
-              }}
-            />
-            {errors.password?.message && (
-              <span className=" bg-danger-2/10 text-12 2xl:text-18 self-start text-danger-2 font-medium rounded-8 2xl:rounded-12 p-12 2xl:p-18">
-                {errors.password.message}
-              </span>
-            )}
-          </div>
-          {/* Login button */}
-          <PrimaryBtn
-            text="Login"
-            type="submit"
-            className="w-[350px] 2xl:w-[500px]"
-            loading={loading}
-          />
-          {/* Sign up link */}
-          <div className="flex items-center gap-8 text-14 2xl:text-20">
-            <span className="text-white-1 font-thin">
-              Do not have an account?
-            </span>
-            <Link
-              href="/signup"
-              replace
-              className="text-white font-medium hover:text-p-accent"
-            >
-              Sign up
-            </Link>
-          </div>
-        </form>
-      ) : (
-        <p>Loading...</p>
-      )}
-    </>
+          Sign up
+        </Link>
+      </div>
+    </form>
   );
 };
 

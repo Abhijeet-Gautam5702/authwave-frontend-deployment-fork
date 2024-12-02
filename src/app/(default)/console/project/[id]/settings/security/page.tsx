@@ -1,8 +1,6 @@
 "use client";
 
 import { SecuritySettingCard } from "@/components/cards/project-setting-card";
-import ProjectNavbar from "@/components/navbars/project-navbar";
-import PageTitle from "@/components/page-title";
 import Protected from "@/components/protected";
 import { getProjectById } from "@/store/project/project.slice";
 import { RootState } from "@/store/store";

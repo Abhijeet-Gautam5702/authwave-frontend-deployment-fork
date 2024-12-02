@@ -10,13 +10,13 @@ import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
-const SettingsLayout = ({ children }: { children: React.ReactNode }) => {
+const OverviewLayout = ({ children }: { children: React.ReactNode }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   const navItems = [
-    { name: "Overview", href: "/settings/overview" },
-    // { name: "Email Templates", href: "/settings/email-templates" }, // !!! FEATURE NOT READY FOR PRODUCTION !!!
-    { name: "Security", href: "/settings/security" },
+    { name: "Users", href: "/overview/users" },
+    { name: "Usage", href: "/overview/usage" },
+    { name: "Security Logs", href: "/overview/security-logs" },
   ];
 
   const params = useParams();
@@ -46,7 +46,7 @@ const SettingsLayout = ({ children }: { children: React.ReactNode }) => {
       {/* Page Title */}
       <PageTitle
         outerClassName="bg-bg-2 2xl:px-160 px-100 2xl:pt-60 pt-40"
-        title="Settings"
+        title="Authentication"
         titleClassName="page-title"
         label={project?.appName}
         labelClassName="text-12 2xl:text-18 font-medium"
@@ -65,4 +65,4 @@ const SettingsLayout = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-export default Protected(SettingsLayout);
+export default Protected(OverviewLayout);

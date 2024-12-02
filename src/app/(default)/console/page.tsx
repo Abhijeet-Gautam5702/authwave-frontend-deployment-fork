@@ -5,9 +5,8 @@ import ProjectCard from "@/components/cards/project-card";
 import Protected from "@/components/protected";
 import { storeSetProjects } from "@/store/project/project.slice";
 import { projectService } from "@/services/project.service";
-import { AppDispatch, RootState } from "@/store/store";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/store/store";
+import { useSelector } from "react-redux";
 
 const ConsolePage = () => {
   /*
@@ -19,8 +18,6 @@ const ConsolePage = () => {
   const projectsFromStore = useSelector(
     (state: RootState) => state.project.projects
   );
-
-  const dispatch = useDispatch<AppDispatch>();
 
   return (
     <div className="text-white w-full grow flex flex-col items-start justify-start gap-20 2xl:gap-40 px-100 2xl:px-200 py-40 2xl:py-80">
