@@ -1,15 +1,9 @@
 import { projectService } from "@/services/project.service";
 import { useState } from "react";
 
-export const useBlockUser = () => {};
-
-export const useDeleteUser = () => {};
-
-export const useVerifyUser = () => {};
-
 export const useGetUsers = (projectId: string, projectKey: string) => {
   const [loading, setLoading] = useState(true);
-  const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState<any[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemLimit, setItemLimit] = useState(5);
   const [hasNextPage, setHasNextPage] = useState(false);

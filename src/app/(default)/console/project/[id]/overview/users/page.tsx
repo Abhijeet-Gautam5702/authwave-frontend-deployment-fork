@@ -22,6 +22,7 @@ const UsersPage = () => {
   const {
     loading,
     users,
+    setUsers,
     getUsers,
     currentPage,
     itemLimit,
@@ -69,7 +70,7 @@ const UsersPage = () => {
       </div>
       {/* Users Display */}
       <div className="min-h-[300px] rounded-8 2xl:rounded-10  bg-bg-2 w-full flex flex-col justify-start items-start gap-20">
-        <UserTable users={users} />
+        <UserTable users={users} setUsers={setUsers} />
       </div>
       <div className="w-full flex flex-row justify-between items-center">
         {/* Pagination */}

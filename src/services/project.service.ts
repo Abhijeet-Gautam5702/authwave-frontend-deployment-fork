@@ -263,6 +263,49 @@ class ProjectService {
       throw error.response.data as IApiError;
     }
   };
+
+  public deleteUser = async (
+    projectId: string,
+    projectKey: string,
+    userId: string
+  ) => {
+    try {
+      const response = await axios.delete(
+        `${AUTHWAVE_BASE_URL}/admin/delete-user/${userId}`,
+        {
+          withCredentials: true,
+          headers: { "project-id": projectId, "project-key": projectKey },
+        }
+      );
+      return response.data as IApiResponse;
+    } catch (error: any) {
+      throw error.response.data as IApiError;
+    }
+  };
+
+  public verifyUser = async (
+    projectId: string,
+    projectKey: string,
+    userId: string,
+    email: string
+  ) => {
+    try {
+      const response = await axios.put(
+        `${AUTHWAVE_BASE_URL}/admin/verify-user`,
+        {
+          userId,
+          email,
+        },
+        {
+          withCredentials: true,
+          headers: { "project-id": projectId, "project-key": projectKey },
+        }
+      );
+      return response.data as IApiResponse;
+    } catch (error: any) {
+      throw error.response.data as IApiError;
+    }
+  };
 }
 
 export const projectService = new ProjectService();
