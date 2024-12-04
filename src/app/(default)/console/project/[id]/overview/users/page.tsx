@@ -3,12 +3,10 @@
 import ActionBtn from "@/components/buttons/action-btn";
 import Searchbar from "@/components/searchbar";
 import UserTable from "@/components/tables/user-table";
-import { projectService } from "@/services/project.service";
 import { getProjectById } from "@/store/project/project.slice";
 import { RootState } from "@/store/store";
 import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
+import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { FaArrowRight, FaArrowLeft } from "react-icons/fa";
 import { SectionLoader } from "@/components/loaders/section-loader";
@@ -20,11 +18,10 @@ const UsersPage = () => {
     getProjectById(state, params.id as string)
   );
 
+  // User Hooks
   const {
     loading,
-    setLoading,
     users,
-    setUsers,
     getUsers,
     currentPage,
     itemLimit,
@@ -32,59 +29,22 @@ const UsersPage = () => {
     hasPreviousPage,
     setCurrentPage,
     setItemLimit,
-    setHasNextPage,
-    setHasPreviousPage,
+    searchQuery,
+    setSearchQuery,
+    searchUsers,
   } = useGetUsers(project?._id as string, project?.projectKey as string);
 
-  const [searchQuery, setSearchQuery] = useState("");
-
-  const searchUser = async (searchInput: string) => {
-    if (searchInput.trim() === "") {
-      getUsers();
-      return;
-    }
-    try {
-      setLoading(true);
-      const response = await projectService.searchUsers(
-        project?._id as string,
-        project?.projectKey as string,
-        searchInput.trim(),
-        {
-          page: Number(currentPage),
-          itemLimit: Number(itemLimit),
-        }
-      );
-      if (response.success) {
-        // console.log(response);
-        setUsers(response.data.users);
-        setItemLimit(response.data.pagination.itemLimit);
-        // setCurrentPage(response.data.pagination.currentPage);
-        setHasNextPage(response.data.pagination.hasNextPage);
-        setHasPreviousPage(response.data.pagination.hasPreviousPage);
-      }
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   useEffect(() => {
-    // console.log("Current Page", currentPage); //debugging
-    // console.log("Search Query", searchQuery); //debugging
-    // console.log("Item Limit", itemLimit); //debugging
-
     if (searchQuery.trim() === "") {
       getUsers();
     } else {
-      searchUser(searchQuery);
+      searchUsers(searchQuery);
     }
   }, [currentPage, itemLimit]);
 
   if (loading) {
     return <SectionLoader />;
   }
-
   return (
     <section className="w-full flex flex-col justify-start items-start 2xl:gap-40 gap-20">
       {/* Search */}
@@ -103,7 +63,7 @@ const UsersPage = () => {
         <ActionBtn
           type="submit"
           text="Search"
-          onClick={() => searchUser(searchQuery.trim())}
+          onClick={() => searchUsers(searchQuery.trim())}
           className="px-20 py-8 2xl:px-35 2xl:py-14 text-14 2xl:text-18 bg-bg-3 rounded-6 hover:bg-bg-2 transition-all duration-150 text-white"
         />
       </div>
