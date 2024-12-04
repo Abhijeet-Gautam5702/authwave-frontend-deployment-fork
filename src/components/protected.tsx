@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { projectService } from "@/services/project.service";
 import { storeSetProjects } from "@/store/project/project.slice";
 import Persist from "@/store/persist";
-import useLoader from "./loader";
+import useUniversalLoader from "./loaders/universal-loader";
 
 /*
     PROTECTED COMPONENT
@@ -26,7 +26,7 @@ const Protected = <P extends object>(
   // Create a protected component (which is essentially a function) and return it
   const ProtectedComponent = (props: P) => {
     const auth = useSelector((state: RootState) => state.auth);
-    const { startLoading, stopLoading } = useLoader();
+    const { startLoading, stopLoading } = useUniversalLoader();
 
     const dispatch = useDispatch();
     const router = useRouter();

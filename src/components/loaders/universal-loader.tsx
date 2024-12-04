@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 import { setLoading, stopLoading } from "@/store/loader/loader.slice";
 
-export const Loader = () => {
+export const UniversalLoader = () => {
   const { isLoading, loadingMessage } = useSelector(
     (state: RootState) => state.loader
   );
@@ -24,7 +24,7 @@ export const Loader = () => {
 };
 
 // Custom hook to manage loader state
-const useLoader = () => {
+const useUniversalLoader = () => {
   const dispatch = useDispatch();
 
   return {
@@ -34,4 +34,4 @@ const useLoader = () => {
   };
 };
 
-export default useLoader;
+export default useUniversalLoader;

@@ -1,5 +1,5 @@
 export class QueryBuilder {
-  public static paginationQuery = (query: {
+  public static paginationAndDateFilters = (filters: {
     page?: number;
     itemLimit?: number;
     startDate?: string;
@@ -7,19 +7,19 @@ export class QueryBuilder {
   }) => {
     let queryString = "";
 
-    if (query) {
+    if (filters) {
       const queryParams = [];
-      if (query.page) {
-        queryParams.push(`page=${query.page}`);
+      if (filters.page) {
+        queryParams.push(`page=${filters.page}`);
       }
-      if (query.itemLimit) {
-        queryParams.push(`itemLimit=${query.itemLimit}`);
+      if (filters.itemLimit) {
+        queryParams.push(`itemLimit=${filters.itemLimit}`);
       }
-      if (query.startDate) {
-        queryParams.push(`startDate=${query.startDate}`);
+      if (filters.startDate) {
+        queryParams.push(`startDate=${filters.startDate}`);
       }
-      if (query.endDate) {
-        queryParams.push(`endDate=${query.endDate}`);
+      if (filters.endDate) {
+        queryParams.push(`endDate=${filters.endDate}`);
       }
       if (queryParams.length > 0) {
         queryString = `${queryParams.join("&")}`;

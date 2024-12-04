@@ -1,6 +1,6 @@
 "use client";
 
-import useLoader from "@/components/loader";
+import useUniversalLoader from "@/components/loaders/universal-loader";
 import { adminAuthService } from "@/services/admin-auth.service";
 import { storeLogin } from "@/store/auth/auth.slice";
 import { useEffect } from "react";
@@ -8,7 +8,7 @@ import { useDispatch } from "react-redux";
 
 export default function Home() {
   const dispatch = useDispatch();
-  const { startLoading, stopLoading } = useLoader();
+  const { startLoading, stopLoading } = useUniversalLoader();
 
   // On Page Load => Log the admin into the store
   useEffect(() => {

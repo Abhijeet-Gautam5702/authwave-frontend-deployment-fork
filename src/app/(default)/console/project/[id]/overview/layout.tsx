@@ -1,6 +1,6 @@
 "use client";
 
-import { SecuritySettingCard } from "@/components/cards/project-setting-card";
+import { SectionLoader } from "@/components/loaders/section-loader";
 import ProjectNavbar from "@/components/navbars/project-navbar";
 import PageTitle from "@/components/page-title";
 import Protected from "@/components/protected";
@@ -34,15 +34,11 @@ const OverviewLayout = ({ children }: { children: React.ReactNode }) => {
   }, [projects]);
 
   if (isLoading) {
-    return (
-      <div className="text-white grow h-full w-full flex flex-col justify-center items-center gap-0 p-0">
-        Loading...
-      </div>
-    );
+    return <SectionLoader loadingMessage="Loading..." />;
   }
 
   return (
-    <div className="w-full grow flex flex-col justify-start items-center gap-0 p-0">
+    <div className="w-full h-full grow flex flex-col justify-start gap-0 p-0">
       {/* Page Title */}
       <PageTitle
         outerClassName="bg-bg-2 2xl:px-160 px-50 2xl:pt-60 pt-40"
@@ -58,7 +54,7 @@ const OverviewLayout = ({ children }: { children: React.ReactNode }) => {
       />
 
       {/* Settings Content */}
-      <div className="w-full min-h-full flex flex-col justify-start items-center gap-40 2xl:px-160 px-50 2xl:py-60 py-30">
+      <div className="w-full grow h-full flex flex-col justify-start items-stretch gap-40 2xl:px-160 px-50 2xl:py-60 py-30">
         {children}
       </div>
     </div>

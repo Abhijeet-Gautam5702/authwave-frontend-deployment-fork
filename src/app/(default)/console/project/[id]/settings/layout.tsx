@@ -1,6 +1,7 @@
 "use client";
 
 import { SecuritySettingCard } from "@/components/cards/project-setting-card";
+import { SectionLoader } from "@/components/loaders/section-loader";
 import ProjectNavbar from "@/components/navbars/project-navbar";
 import PageTitle from "@/components/page-title";
 import Protected from "@/components/protected";
@@ -34,11 +35,7 @@ const SettingsLayout = ({ children }: { children: React.ReactNode }) => {
   }, [projects]);
 
   if (isLoading) {
-    return (
-      <div className="text-white grow h-full w-full flex flex-col justify-center items-center gap-0 p-0">
-        Loading...
-      </div>
-    );
+    return <SectionLoader loadingMessage="Loading..." />;
   }
 
   return (

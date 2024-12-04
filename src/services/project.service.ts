@@ -215,7 +215,7 @@ class ProjectService {
   public getUsers = async (
     projectId: string,
     projectKey: string,
-    query: {
+    filters: {
       page?: number;
       itemLimit?: number;
       startDate?: string;
@@ -223,10 +223,36 @@ class ProjectService {
     }
   ) => {
     try {
-      let queryString = QueryBuilder.paginationQuery(query);
+      let queryString = QueryBuilder.paginationAndDateFilters(filters);
 
       const response = await axios.get(
         `${AUTHWAVE_BASE_URL}/admin/get-all-users?${queryString}`,
+        {
+          withCredentials: true,
+          headers: { "project-id": projectId, "project-key": projectKey },
+        }
+      );
+      return response.data as IApiResponse;
+    } catch (error: any) {
+      throw error.response.data as IApiError;
+    }
+  };
+
+  public searchUsers = async (
+    projectId: string,
+    projectKey: string,
+    searchQuery: string,
+    filters: {
+      page?: number;
+      itemLimit?: number;
+      startDate?: string;
+      endDate?: string;
+    }
+  ) => {
+    try {
+      let queryString = QueryBuilder.paginationAndDateFilters(filters);
+      const response = await axios.get(
+        `${AUTHWAVE_BASE_URL}/admin/search-users?searchQuery=${searchQuery}&${queryString}`,
         {
           withCredentials: true,
           headers: { "project-id": projectId, "project-key": projectKey },
