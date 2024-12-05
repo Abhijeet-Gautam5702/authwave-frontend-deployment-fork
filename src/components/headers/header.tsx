@@ -32,7 +32,7 @@ const Header = () => {
         setTimeout(() => {
           dispatch(storeLogout());
           dispatch(storeResetProjects());
-        }, 200);
+        }, 1000);
       }
     } catch (error) {
       console.log(error);

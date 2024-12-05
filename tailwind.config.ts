@@ -22,6 +22,8 @@ export default {
         "s-accent": "#4a4cec",
       },
       fontSize: {
+        6: "6px",
+        8: "8px",
         10: "10px",
         12: "12px",
         14: "14px",

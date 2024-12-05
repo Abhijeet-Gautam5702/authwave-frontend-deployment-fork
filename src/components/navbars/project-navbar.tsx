@@ -1,11 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter, usePathname, useParams } from "next/navigation";
+import { usePathname, useParams } from "next/navigation";
+import ComingSoonLabel from "../labels/coming-soon";
 
 interface NavItem {
   name: string;
   href: string;
+  disabled: boolean;
 }
 interface ProjectNavbarProps {
   className?: string;
@@ -38,7 +40,12 @@ const ProjectNavbar = ({
           href={`/console/project/${params.id}${item.href}`}
           key={index}
         >
-          {item.name}
+          <div className="flex flex-row justify-start items-center gap-6">
+            {item.name}
+            {item.disabled && (
+              <ComingSoonLabel className="text-8 font-semibold 2xl:text-10" />
+            )}
+          </div>
         </Link>
       ))}
     </div>

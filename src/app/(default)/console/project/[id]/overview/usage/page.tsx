@@ -1,5 +1,9 @@
+"use client";
+import ComingSoon from "@/components/coming-soon";
+import Protected from "@/components/protected";
+
 const UsagePage = () => {
-  return <div>Usage</div>;
+  return <ComingSoon />;
 };
 
-export default UsagePage;
+export default Protected(UsagePage);

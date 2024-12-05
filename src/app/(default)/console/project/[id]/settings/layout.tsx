@@ -15,9 +15,13 @@ const SettingsLayout = ({ children }: { children: React.ReactNode }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   const navItems = [
-    { name: "Overview", href: "/settings/overview" },
-    // { name: "Email Templates", href: "/settings/email-templates" }, // !!! FEATURE NOT READY FOR PRODUCTION !!!
-    { name: "Security", href: "/settings/security" },
+    { name: "Overview", href: "/settings/overview", disabled: false },
+    { name: "Security", href: "/settings/security", disabled: false },
+    {
+      name: "Email Templates",
+      href: "/settings/email-templates",
+      disabled: true,
+    }, // !!! FEATURE NOT READY FOR PRODUCTION !!!
   ];
 
   const params = useParams();
@@ -39,7 +43,7 @@ const SettingsLayout = ({ children }: { children: React.ReactNode }) => {
   }
 
   return (
-    <div className="w-full grow flex flex-col justify-start items-center gap-0 p-0">
+    <div className="w-full h-full grow flex flex-col justify-start  gap-0 p-0">
       {/* Page Title */}
       <PageTitle
         outerClassName="bg-bg-2 2xl:px-160 px-50 2xl:pt-60 pt-40"
@@ -55,7 +59,7 @@ const SettingsLayout = ({ children }: { children: React.ReactNode }) => {
       />
 
       {/* Settings Content */}
-      <div className="w-full min-h-full flex flex-col justify-start items-center gap-40 2xl:px-160 px-50 2xl:py-60 py-30">
+      <div className="w-full h-full flex flex-col justify-start items-stretch gap-40 2xl:px-160 px-50 2xl:py-60 py-30">
         {children}
       </div>
     </div>

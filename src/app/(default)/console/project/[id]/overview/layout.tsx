@@ -14,9 +14,13 @@ const OverviewLayout = ({ children }: { children: React.ReactNode }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   const navItems = [
-    { name: "Users", href: "/overview/users" },
-    { name: "Usage", href: "/overview/usage" },
-    // { name: "Security Logs", href: "/overview/security-logs" }, // ADD THIS FEATURE IN THE FUTURE
+    { name: "Users", href: "/overview/users", disabled: false },
+    { name: "Usage", href: "/overview/usage", disabled: true }, // ADD THIS FEATURE IN THE FUTURE
+    {
+      name: "Security Logs",
+      href: "/overview/security-logs",
+      disabled: true,
+    }, // ADD THIS FEATURE IN THE FUTURE
   ];
 
   const params = useParams();

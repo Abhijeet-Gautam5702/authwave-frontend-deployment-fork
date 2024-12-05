@@ -1,5 +1,9 @@
+"use client";
+import ComingSoon from "@/components/coming-soon";
+import Protected from "@/components/protected";
+
 const SecurityLogsPage = () => {
-  return <div>Security Logs</div>;
+  return <ComingSoon />;
 };
 
-export default SecurityLogsPage;
+export default Protected(SecurityLogsPage);

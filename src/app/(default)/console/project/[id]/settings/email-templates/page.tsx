@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 import { getProjectById } from "@/store/project/project.slice";
 import { EmailTemplateCard } from "@/components/cards/project-setting-card";
 import { DefaultEmailTemplate } from "@/utils/default-email-template";
+import ComingSoon from "@/components/coming-soon";
 
 const EmailTemplates = () => {
   const params = useParams();
@@ -17,16 +18,7 @@ const EmailTemplates = () => {
     getProjectById(state, params.id as string)
   );
 
-  return (
-    <section className="w-full flex flex-col justify-start items-start 2xl:gap-40 gap-20">
-      <EmailTemplateCard
-        project={project!}
-        emailTemplate={DefaultEmailTemplate.userVerification(
-          "https://dummy-base-link.com"
-        )}
-      />
-    </section>
-  );
+  return <ComingSoon />;
 };
 
 export default Protected(EmailTemplates);

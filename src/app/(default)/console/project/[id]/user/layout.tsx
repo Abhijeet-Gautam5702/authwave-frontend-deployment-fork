@@ -20,8 +20,12 @@ const UserLayout = ({ children }: { children: React.ReactNode }) => {
   const userId = params["user-id"] as string;
 
   const navItems = [
-    { name: "Overview", href: `/user/${userId}/overview` },
-    { name: "Sessions", href: `/user/${userId}/sessions` },
+    { name: "Overview", href: `/user/${userId}/overview`, disabled: false },
+    {
+      name: "Sessions",
+      href: `/user/${userId}/sessions`,
+      disabled: true,
+    },
   ];
 
   const project = useSelector((state: RootState) =>
@@ -41,7 +45,7 @@ const UserLayout = ({ children }: { children: React.ReactNode }) => {
   }
 
   return (
-    <div className="w-full grow flex flex-col justify-start items-center gap-0 p-0">
+    <div className="w-full h-full grow flex flex-col justify-start gap-0 p-0">
       {/* Page Title */}
       <PageTitle
         outerClassName="bg-bg-2 2xl:px-160 px-50 2xl:pt-60 pt-40"
@@ -58,7 +62,7 @@ const UserLayout = ({ children }: { children: React.ReactNode }) => {
       />
 
       {/* User Content */}
-      <div className="w-full min-h-full flex flex-col justify-start items-center gap-40 2xl:px-160 px-50 2xl:py-60 py-30">
+      <div className="w-full grow h-full flex flex-col justify-start items-stretch gap-40 2xl:px-160 px-50 2xl:py-60 py-30">
         {children}
       </div>
     </div>
