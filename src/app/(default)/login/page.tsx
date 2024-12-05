@@ -9,8 +9,6 @@ import { adminAuthService } from "@/services/admin-auth.service";
 import { useDispatch, useSelector } from "react-redux";
 import { storeLogin } from "@/store/auth/auth.slice";
 import { useRouter } from "next/navigation";
-import useLoader from "@/components/loader";
-import { RootState } from "@/store/store";
 
 interface LoginFormInputs {
   email: string;

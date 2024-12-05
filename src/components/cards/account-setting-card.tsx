@@ -1,4 +1,4 @@
-import { UseFormRegister } from "react-hook-form";
+import { RegisterOptions, UseFormRegister } from "react-hook-form";
 import { FieldValues } from "react-hook-form";
 import ActionBtn, { DangerActionBtn } from "../buttons/action-btn";
 import Input from "../input";
@@ -9,10 +9,12 @@ interface AccountSettingCardProps {
   cardClassName?: string;
   description?: string;
   buttonText: string;
-  inputPlaceholder: string;
-  register: UseFormRegister<Partial<IAccountFormData>>;
-  inputName: keyof IAccountFormData;
+  inputPlaceholder?: string;
+  register: any;
+  registerOptions?: RegisterOptions;
+  inputName: string;
   inputType?: string;
+  inputError?: string;
   buttonClick: () => void;
 }
 
@@ -24,8 +26,10 @@ export const AccountSettingCard = ({
   inputPlaceholder,
   buttonClick,
   register,
+  registerOptions,
   inputName,
   inputType,
+  inputError,
   ...props
 }: AccountSettingCardProps) => {
   return (
@@ -49,8 +53,11 @@ export const AccountSettingCard = ({
             labelStyle="text-14 2xl:text-18"
             placeholder={inputPlaceholder}
             register={register}
+            registerOptions={registerOptions}
             name={inputName}
             type={inputType}
+            error={inputError}
+            {...props}
           />
         </div>
       </div>

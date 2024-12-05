@@ -14,7 +14,7 @@ const ActionBtn = ({
   loading,
   ...props
 }: ActionBtnProps) => {
-  const btnClass = `cursor-pointer rounded-4 2xl:rounded-6 tracking-wider ${className}`;
+  const btnClass = `cursor-pointer rounded-6 2xl:rounded-8 tracking-wider ${className}`;
 
   return (
     <button type={type} className={btnClass} {...props}>

@@ -5,6 +5,7 @@ import { getProjectById } from "@/store/project/project.slice";
 import { RootState } from "@/store/store";
 import Link from "next/link";
 import { useParams } from "next/navigation";
+import { useEffect } from "react";
 import { FiCopy } from "react-icons/fi";
 import { HiOutlineTrash } from "react-icons/hi2";
 import { MdBlock } from "react-icons/md";
@@ -171,7 +172,9 @@ export default function UsersTable({
                 <div className="flex-grow flex flex-row justify-end items-center gap-14 2xl:gap-22 py-12 2xl:py-16">
                   {/* Details */}
                   <Link
-                    href={`/console/project/${user.projectId}/user?id=${user._id}`}
+                    href={`/console/project/${
+                      params.id as string
+                    }/user/${user._id}/overview`}
                   >
                     <div className="group relative">
                       <PiDotsThreeBold className="text-white font-bold transition-colors duration-100 h-[20px] w-[20px] 2xl:h-[24px] 2xl:w-[24px] cursor-pointer" />
@@ -182,12 +185,12 @@ export default function UsersTable({
                   </Link>
 
                   {/* BLOCK USER: ADD THIS FEATURE IN THE FUTURE */}
-                  {/* <div className="group relative">
+                  <div className="group relative">
                     <MdBlock className="text-warning transition-colors duration-100 h-[20px] w-[20px] 2xl:h-[24px] 2xl:w-[24px] cursor-pointer" />
                     <span className="absolute left-1/2 -translate-x-1/2 px-10 py-4 bg-bg-3 text-white text-12 2xl:text-16 rounded-4 2xl:rounded-8 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
-                      Block
+                      Coming Soon...
                     </span>
-                  </div> */}
+                  </div>
 
                   {/* Delete */}
                   <div className="group relative">

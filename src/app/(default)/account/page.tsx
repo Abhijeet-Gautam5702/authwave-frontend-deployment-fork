@@ -17,7 +17,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import useLoader from "@/components/loader";
+import useUniversalLoader from "@/components/loaders/universal-loader";
 
 export interface IAccountFormData {
   name: string;
@@ -38,7 +38,7 @@ const AccountPage = () => {
   });
 
   const [loading, setLoading] = useState(false);
-  const { startLoading, stopLoading } = useLoader();
+  const { startLoading, stopLoading } = useUniversalLoader();
 
   /* --------- Form Submit Handlers --------- */
   const submitName = async (data: Partial<IAccountFormData>) => {

@@ -33,3 +33,7 @@ body {
 .bg-gradient {
   @apply bg-gradient-to-r from-p-accent from-0% to-s-accent to-80%;
 }
+
+.bg-basic {
+  @apply bg-bg-3;
+}

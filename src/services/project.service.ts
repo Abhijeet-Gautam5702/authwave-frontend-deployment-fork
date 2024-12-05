@@ -238,6 +238,25 @@ class ProjectService {
     }
   };
 
+  public getUserDetails = async (
+    projectId: string,
+    projectKey: string,
+    userId: string
+  ) => {
+    try {
+      const response = await axios.get(
+        `${AUTHWAVE_BASE_URL}/admin/get-user/${userId}`,
+        {
+          withCredentials: true,
+          headers: { "project-id": projectId, "project-key": projectKey },
+        }
+      );
+      return response.data as IApiResponse;
+    } catch (error: any) {
+      throw error.response.data as IApiError;
+    }
+  };
+
   public searchUsers = async (
     projectId: string,
     projectKey: string,
@@ -286,8 +305,8 @@ class ProjectService {
   public verifyUser = async (
     projectId: string,
     projectKey: string,
-    userId: string,
-    email: string
+    userId?: string,
+    email?: string
   ) => {
     try {
       const response = await axios.put(
@@ -296,6 +315,30 @@ class ProjectService {
           userId,
           email,
         },
+        {
+          withCredentials: true,
+          headers: { "project-id": projectId, "project-key": projectKey },
+        }
+      );
+      return response.data as IApiResponse;
+    } catch (error: any) {
+      throw error.response.data as IApiError;
+    }
+  };
+
+  public updateUserDetails = async (
+    projectId: string,
+    projectKey: string,
+    userId: string,
+    data: Partial<{
+      username: string;
+      email: string;
+    }>
+  ) => {
+    try {
+      const response = await axios.put(
+        `${AUTHWAVE_BASE_URL}/admin/update-user/${userId}`,
+        data,
         {
           withCredentials: true,
           headers: { "project-id": projectId, "project-key": projectKey },
