@@ -81,7 +81,7 @@ const LoginPage = () => {
           registerOptions={{
             required: "Email is required",
             pattern: {
-              value: /^\S+@\S+\.\S+$/,
+              value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
               message: "Invalid email address",
             },
           }}

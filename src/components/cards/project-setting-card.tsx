@@ -438,6 +438,22 @@ export const DetailsCard = ({ project }: DetailsCardProps) => {
                 widthStyle="w-full"
                 name="projectName"
                 register={register}
+                registerOptions={{
+                  required: "Project name is required",
+                  minLength: {
+                    value: 3,
+                    message: "Project-Name must be at least 3 characters long",
+                  },
+                  maxLength: {
+                    value: 30,
+                    message: "Project-Name must be at most 30 characters long",
+                  },
+                  pattern: {
+                    value: /^[a-zA-Z][a-zA-Z0-9-]*$/,
+                    message:
+                      "Project-Name must start with an alphabet and can only contain letters, numbers, and hyphens",
+                  },
+                }}
                 label="Project name"
                 labelStyle="text-14 2xl:text-18"
                 type="text"

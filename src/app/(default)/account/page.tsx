@@ -206,6 +206,22 @@ const AccountPage = () => {
             buttonClick={handleSubmit(submitName)}
             inputPlaceholder="Enter your name"
             register={register}
+            registerOptions={{
+              required: "Name is required",
+              minLength: {
+                value: 3,
+                message: "Name must be at least 3 characters long",
+              },
+              maxLength: {
+                value: 30,
+                message: "Name must be at most 30 characters long",
+              },
+              pattern: {
+                value: /^[a-zA-Z]+(?:\s[a-zA-Z]+)*$/,
+                message:
+                  "Name can only contain letters and single spaces between words. No numbers or special characters allowed.",
+              },
+            }}
             inputName="name"
           />
           <AccountSettingCard
@@ -215,6 +231,13 @@ const AccountPage = () => {
             buttonClick={handleSubmit(submitEmail)}
             inputPlaceholder="Enter your email"
             register={register}
+            registerOptions={{
+              required: "Email is required",
+              pattern: {
+                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                message: "Invalid email address",
+              },
+            }}
             inputName="email"
           />
           <AccountSettingCard
@@ -224,6 +247,15 @@ const AccountPage = () => {
             buttonClick={handleSubmit(submitPassword)}
             inputPlaceholder="Enter your new password"
             register={register}
+            registerOptions={{
+              required: "Password is required",
+              pattern: {
+                value:
+                  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,64}$/,
+                message:
+                  "Password must contain at least 8 characters, one uppercase letter, one lowercase letter, one number and one special character (@$!%*?&)",
+              },
+            }}
             inputName="password"
             inputType="password"
           />
