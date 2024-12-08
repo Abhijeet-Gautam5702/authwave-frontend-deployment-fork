@@ -20,7 +20,7 @@ const SecondaryBtn = ({
   loading,
   ...props
 }: SecondaryBtnProps) => {
-  const btnClass = `cursor-pointer rounded-4 2xl:rounded-8 border-[0.5px] 2xl:border-[1px] text-white text-14 2xl:text-20 px-20 py-10 2xl:px-35 2xl:py-18 ${className}`;
+  const btnClass = `cursor-pointer rounded-4 2xl:rounded-8 border-[0.5px] 2xl:border-[1px] text-14 2xl:text-20 px-20 py-10 2xl:px-35 2xl:py-18 ${className}`;
 
   // Return a redirection type button when href is provided
   if (href) {

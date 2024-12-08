@@ -13,9 +13,10 @@ export default function Hero() {
         </h1>
         {/* Subtitle */}
         <p className="text-white/60 text-20 2xl:text-26 leading-normal max-w-3xl 2xl:max-w-4xl mx-auto">
-          Enterprise-grade authentication and user management platform that lets
-          developers focus on building great products without worrying about
-          complex security infrastructure.
+          Write hundreds of lines of code for creating exceptional applications
+          and{" "}
+          <span className="italic font-semibold text-white px-6"> not </span> for
+          setting up authentication
         </p>
         {/* Button */}
         <div className="w-full mt-8 2xl:mt-16 flex-center gap-20 2xl:gap-30">

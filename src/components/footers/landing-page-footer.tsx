@@ -26,8 +26,7 @@ export default function LandingPageFooter() {
               </p>
             </Link>
             <p className="text-white/60">
-              Enterprise-grade authentication and user management platform that
-              streamlines secure user access for modern applications.
+              Empowering Your Applications with Seamless and Secure User Authentication.
             </p>
             <div className="flex gap-12 2xl:gap-20 mt-2">
               <Link

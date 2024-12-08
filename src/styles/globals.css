@@ -6,12 +6,8 @@ body {
   background-color: var(--background);
 }
 
-/* Only for testing: Remove before deployment */
-.test-bg {
-  @apply bg-yellow-300;
-}
-.test-border {
-  @apply border-danger-1 border-[2px];
+html {
+  scroll-behavior: smooth;
 }
 
 .active-text {
