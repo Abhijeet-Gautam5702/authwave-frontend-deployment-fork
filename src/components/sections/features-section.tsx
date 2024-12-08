@@ -1,37 +1,93 @@
-import { features } from "@/constants/landing-page.constants";
+import { Mail, Users, Grid, Shield, LayoutDashboard, Key } from "lucide-react";
+import FeatureCard from "../cards/feature-card";
 
-export default function FeaturesSection() {
+export default function Features() {
   return (
-    <section className="py-20 px-4" id="features">
-      <div className="container mx-auto">
-        <h2 className="text-3xl md:text-5xl font-bold text-center mb-4">
-          Powerful Features for Modern Authentication
-        </h2>
-        <p className="text-gray-400 text-center mb-16 text-lg">
-          Everything you need to implement secure, scalable authentication in
-          your applications
-        </p>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <section
+      className="w-full pt-100 pb-50 2xl:pt-60 min-h-screen flex-center bg-bg-2"
+      id="features"
+    >
+      <div className="w-full flex-center flex-col text-center gap-50 2xl:gap-80">
+        <div className="flex-center flex-col text-center gap-12 2xl:gap-18">
+          <h2 className="font-bold text-40 2xl:text-70 leading-tight">
+            <span className="text-gradient">Powerful Features</span> for Modern
+            Authentication
+          </h2>
+          <p className="text-white/60 font-normal text-18 2xl:text-24 leading-normal  mx-auto">
+            Everything you need to implement secure, scalable authentication in
+            your applications
+          </p>
+        </div>
+        <div className="w-full grid grid-cols-3 grid-rows-2 gap-24 2xl:gap-35 px-24 2xl:px-50">
           {features.map((feature, index) => (
-            <div
-              key={index}
-              className="bg-[#1A1A1A] rounded-xl p-6 hover:bg-[#242424] transition-colors"
-            >
-              <div className="text-[#00B6F0] mb-4">{feature.icon}</div>
-              <h3 className="text-xl font-bold mb-3">{feature.title}</h3>
-              <p className="text-gray-400">{feature.description}</p>
-              <ul className="mt-4 space-y-2">
-                {feature.bullets.map((bullet, idx) => (
-                  <li key={idx} className="flex items-center gap-2">
-                    <span className="text-[#00B6F0]">✓</span>
-                    <span className="text-gray-300">{bullet}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
+            <FeatureCard key={index} {...feature} className="w-full h-full" />
           ))}
         </div>
       </div>
     </section>
   );
-} 
+}
+
+export const features = [
+  {
+    icon: <Mail className="w-full h-full text-p-accent" />,
+    title: "Multiple Authentication Methods",
+    description:
+      "Flexible login options including email/password, Magic URL, and OTP via email.",
+    bullets: [
+      "Email/Password Login",
+      "Passwordless Authentication",
+      "OTP via Email",
+    ],
+  },
+  {
+    icon: <Users className="w-full h-full text-p-accent" />,
+    title: "Advanced User Management",
+    description:
+      "Comprehensive tools for user registration, verification, and account security.",
+    bullets: [
+      "Easy Registration Flow",
+      "Email Verification",
+      "Account Protection",
+    ],
+  },
+  {
+    icon: <Grid className="w-full h-full text-p-accent" />,
+    title: "Multi-Project Support",
+    description:
+      "Manage multiple applications with project-specific settings and configurations.",
+    bullets: [
+      "Custom Email Templates",
+      "Project-Level Limits",
+      "Individual Configurations",
+    ],
+  },
+  {
+    icon: <Shield className="w-full h-full text-p-accent" />,
+    title: "Security Logging & Analysis",
+    description:
+      "Comprehensive tracking and analysis of all security-related activities.",
+    bullets: [
+      "Real-time Activity Tracking",
+      "Failed Attempt Monitoring",
+      "Security Event Logging",
+    ],
+  },
+  {
+    icon: <LayoutDashboard className="w-full h-full text-p-accent" />,
+    title: "Powerful Admin Dashboard",
+    description:
+      "Centralized control panel for project management and monitoring.",
+    bullets: [
+      "Project Management",
+      "User Activity Monitoring",
+      "Security Log Analysis",
+    ],
+  },
+  {
+    icon: <Key className="w-full h-full text-p-accent" />,
+    title: "API Security",
+    description: "Robust API security measures for safe and controlled access.",
+    bullets: ["Unique Project Keys", "Key Regeneration", "Access Control"],
+  },
+];

@@ -4,7 +4,7 @@ import SecondaryBtn from "../buttons/secondary-btn";
 
 export default function Hero() {
   return (
-    <section className="w-full min-h-screen flex-center">
+    <section className="w-full mt-12 2xl:mt-16 min-h-screen flex-center">
       <div className="w-full flex-center flex-col text-center gap-14 2xl:gap-20">
         {/* Title */}
         <h1 className="font-bold text-50 2xl:text-80 leading-tight">
