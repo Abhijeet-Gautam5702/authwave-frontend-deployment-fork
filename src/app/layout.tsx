@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import "@/styles/globals.css";
-import Footer from "@/components/footer";
+import Footer from "@/components/footers/footer";
 import Header from "@/components/headers/header";
 import { Inter } from "next/font/google";
 import StoreProvider from "@/providers/store-provider";

@@ -19,6 +19,7 @@ import LandingPageHeader from "@/components/headers/landing-page-header";
 import LandingPageFooter from "@/components/footers/landing-page-footer";
 import Hero from "@/components/sections/hero-section";
 import Features from "@/components/sections/features-section";
+import AuthMethods from "@/components/sections/auth-methods-section";
 
 // Main landing page component
 export default function LandingPage() {
@@ -34,89 +35,7 @@ export default function LandingPage() {
       <Features />
 
       {/* Authentication Methods Section */}
-      <section className="py-20 px-4 bg-[#1A1A1A]" id="authentication-methods">
-        <div className="container mx-auto text-center">
-          <h2 className="text-3xl md:text-5xl font-bold mb-4">
-            Multiple Authentication Methods
-          </h2>
-          <p className="text-gray-400 mb-16 text-lg">
-            Choose from a variety of secure authentication options to match your
-            application's needs
-          </p>
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="bg-[#0D0D0D] rounded-xl p-8 card-hover">
-              <div className="bg-[#1A1A1A] w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
-                <Mail className="w-8 h-8 text-[#00B6F0]" />
-              </div>
-              <h3 className="text-xl font-bold mb-4">Email/Password Login</h3>
-              <ul className="space-y-3 text-left">
-                <li className="flex items-center gap-2">
-                  <span className="text-[#00B6F0]">✓</span>
-                  <span className="text-gray-300">
-                    Secure password hashing with Bcrypt
-                  </span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <span className="text-[#00B6F0]">✓</span>
-                  <span className="text-gray-300">
-                    Password strength enforcement
-                  </span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <span className="text-[#00B6F0]">✓</span>
-                  <span className="text-gray-300">Brute force protection</span>
-                </li>
-              </ul>
-            </div>
-            <div className="bg-[#0D0D0D] rounded-xl p-8 card-hover">
-              <div className="bg-[#1A1A1A] w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
-                <Pen className="w-8 h-8 text-[#00B6F0]" />
-              </div>
-              <h3 className="text-xl font-bold mb-4">Magic URL</h3>
-              <ul className="space-y-3 text-left">
-                <li className="flex items-center gap-2">
-                  <span className="text-[#00B6F0]">✓</span>
-                  <span className="text-gray-300">
-                    Passwordless authentication
-                  </span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <span className="text-[#00B6F0]">✓</span>
-                  <span className="text-gray-300">
-                    Time-limited secure links
-                  </span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <span className="text-[#00B6F0]">✓</span>
-                  <span className="text-gray-300">Single-use token system</span>
-                </li>
-              </ul>
-            </div>
-            <div className="bg-[#0D0D0D] rounded-xl p-8 card-hover">
-              <div className="bg-[#1A1A1A] w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
-                <Key className="w-8 h-8 text-[#00B6F0]" />
-              </div>
-              <h3 className="text-xl font-bold mb-4">OTP via Email</h3>
-              <ul className="space-y-3 text-left">
-                <li className="flex items-center gap-2">
-                  <span className="text-[#00B6F0]">✓</span>
-                  <span className="text-gray-300">
-                    Time-based one-time passwords
-                  </span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <span className="text-[#00B6F0]">✓</span>
-                  <span className="text-gray-300">Secure code delivery</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <span className="text-[#00B6F0]">✓</span>
-                  <span className="text-gray-300">Expiration handling</span>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
+      <AuthMethods />
 
       {/* Security Section */}
       <section className="py-20 px-4" id="security">

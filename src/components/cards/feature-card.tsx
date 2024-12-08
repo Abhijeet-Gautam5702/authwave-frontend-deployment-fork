@@ -19,7 +19,7 @@ const FeatureCard = ({
     >
       <div className="flex flex-row justify-start items-center gap-18 2xl:gap-22">
         <div className="text-p-accent w-7 h-7 2xl:w-9 2xl:h-9">{icon}</div>
-        <h3 className="text-left text-18 2xl:text-24 font-medium">{title}</h3>
+        <h3 className="text-left text-18 2xl:text-24 font-semibold">{title}</h3>
       </div>
       <p className="text-left text-white/60 text-16 2xl:text-18">
         {description}

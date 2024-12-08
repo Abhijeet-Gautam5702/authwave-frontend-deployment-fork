@@ -1,7 +1,7 @@
 "use client";
 
 import Header from "@/components/headers/header";
-import Footer from "@/components/footer";
+import Footer from "@/components/footers/footer";
 import { UniversalLoader } from "@/components/loaders/universal-loader";
 
 export default function DefaultLayout({
