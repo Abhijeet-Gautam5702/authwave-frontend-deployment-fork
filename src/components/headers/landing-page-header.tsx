@@ -4,7 +4,7 @@ import Image from "next/image";
 
 export default function LandingPageHeader() {
   return (
-    <header className="fixed top-0 w-full z-50 bg-bg-1/80 backdrop-blur-sm px-20 py-10 2xl:px-30 2xl:py-16 flex flex-row justify-between items-center text-white text-14 2xl:text-20 border-b-[0.5px] border-b-white/15 2xl:border-b-[1px] 2xl:border-b-white/25">
+    <header className="fixed top-0 w-full z-50 bg-bg-1/75 backdrop-blur-sm px-20 py-10 2xl:px-30 2xl:py-16 flex flex-row justify-between items-center text-white text-14 2xl:text-20 ">
       <Link href="/">
         <div className="flex flex-row justify-center items-center gap-2">
           <Image
