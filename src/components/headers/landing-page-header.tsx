@@ -1,8 +1,37 @@
+"use client";
+
 import Link from "next/link";
+import { adminAuthService } from "@/services/admin-auth.service";
 import PrimaryBtn from "../buttons/primary-btn";
 import Image from "next/image";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { storeLogin } from "@/store/auth/auth.slice";
+import useUniversalLoader from "../loaders/universal-loader";
 
 export default function LandingPageHeader() {
+  const dispatch = useDispatch();
+  const { startLoading, stopLoading } = useUniversalLoader();
+
+  // On Page Load => Log the admin into the store
+  useEffect(() => {
+    (async () => {
+      try {
+        startLoading();
+        const response = await adminAuthService.getAccount();
+        if (response?.success) {
+          dispatch(storeLogin(response.data));
+        }
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setTimeout(() => {
+          stopLoading();
+        }, 1000);
+      }
+    })();
+  }, []);
+
   return (
     <header className="fixed top-0 w-full z-50 bg-transparent backdrop-blur-md px-20 py-10 2xl:px-30 2xl:py-16 flex flex-row justify-between items-center text-white text-14 2xl:text-20 ">
       <Link href="#hero">

@@ -15,7 +15,9 @@ const Footer = () => {
       {/* Links */}
       <div className="flex flex-row justify-start items-center gap-20 2xl:gap-30">
         <p>{`Version 1.0.2`}</p>
-        <Link href="/docs">Docs</Link>
+        <Link href="https://github.com/Auth-Wave/authwave-docs/wiki" target="_blank">
+          Docs
+        </Link>
         <Link href="https://github.com/Abhijeet-Gautam5702" target="_blank">
           <div className="flex flex-row justify-start items-center gap-12 2xl:gap-20">
             <p>Developer</p>

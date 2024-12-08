@@ -57,8 +57,9 @@ const Header = () => {
       {/* Nav items */}
       <div className="flex flex-row justify-center items-center gap-20  2xl:gap-30">
         <Link
-          href="/docs"
-          className={pathname === "/docs" ? "active-text" : "inactive-text"}
+          href="https://github.com/Auth-Wave/authwave-docs/wiki"
+          target="_blank"
+          // className={pathname === "/docs" ? "active-text" : "inactive-text"}
         >
           Documentation
         </Link>

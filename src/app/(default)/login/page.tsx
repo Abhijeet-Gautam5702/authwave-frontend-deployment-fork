@@ -23,10 +23,9 @@ const LoginPage = () => {
     formState: { errors },
     clearErrors,
   } = useForm<LoginFormInputs>({
-    // TODO:Remove the default values when the production is ready
     defaultValues: {
-      email: "admin@authwave.com",
-      password: "Test123456@",
+      email: "",
+      password: "",
     },
   });
 
