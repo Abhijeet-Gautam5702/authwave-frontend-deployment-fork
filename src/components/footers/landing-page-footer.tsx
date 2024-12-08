@@ -26,7 +26,8 @@ export default function LandingPageFooter() {
               </p>
             </Link>
             <p className="text-white/60">
-              Empowering Your Applications with Seamless and Secure User Authentication.
+              Empowering Your Applications with Seamless and Secure User
+              Authentication.
             </p>
             <div className="flex gap-12 2xl:gap-20 mt-2">
               <Link
@@ -49,13 +50,32 @@ export default function LandingPageFooter() {
           <div className="w-1/2 flex flex-row justify-start items-start gap-20 2xl:gap-50">
             <FooterColumn
               title="Resources"
-              items={["Documentation", "API Reference"]}
+              items={[
+                {
+                  title: "Documentation",
+                  href: "https://github.com/Auth-Wave/authwave-docs/wiki",
+                },
+                {
+                  title: "API Reference",
+                  href: "https://github.com/Auth-Wave/authwave-docs/wiki/SDK-Integration",
+                },
+              ]}
             />
             <FooterColumn
               title="Product"
-              items={["Features", "Pricing", "Security"]}
+              items={[
+                { title: "Features", href: "#features" },
+                { title: "Pricing", href: "#pricing" },
+                { title: "Security", href: "#security" },
+              ]}
             />
-            <FooterColumn title="Company" items={["About", "Contact"]} />
+            <FooterColumn
+              title="Software"
+              items={[
+                { title: "About", href: "#hero" },
+                { title: "Contact", href: "https://x.com/abhijeet_gautam" },
+              ]}
+            />
           </div>
         </div>
         {/* Copyright and Links */}
@@ -81,7 +101,7 @@ export default function LandingPageFooter() {
                 <FaGithub className="w-4 h-4 2xl:w-8 2xl:h-8 hover:text-white" />
               </Link>
               <Link href="https://x.com/abhijeet_gautam" target="_blank">
-                <FaTwitter className="w-4 h-4 2xl:w-8 2xl:h-8 hover:text-white" />
+                <FaXTwitter className="w-4 h-4 2xl:w-8 2xl:h-8 hover:text-white" />
               </Link>
             </div>
           </div>
@@ -93,7 +113,10 @@ export default function LandingPageFooter() {
 
 interface FooterColumnProps {
   title: string;
-  items: string[];
+  items: {
+    title: string;
+    href: string;
+  }[];
 }
 
 function FooterColumn({ title, items }: FooterColumnProps) {
@@ -101,10 +124,14 @@ function FooterColumn({ title, items }: FooterColumnProps) {
     <div className="w-1/3">
       <h3 className="text-14 2xl:text-20 font-semibold mb-4">{title}</h3>
       <ul className="space-y-3">
-        {items.map((item) => (
-          <li key={item}>
-            <Link href="#" className="text-white/60 hover:text-white">
-              {item}
+        {items.map((item, index) => (
+          <li key={index}>
+            <Link
+              href={item.href}
+              target={item.href.includes("#") ? "_self" : "_blank"}
+              className="text-white/60 hover:text-white"
+            >
+              {item.title}
             </Link>
           </li>
         ))}
