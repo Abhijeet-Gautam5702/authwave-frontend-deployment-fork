@@ -6,36 +6,20 @@ import AuthMethods from "@/components/sections/auth-methods-section";
 import Security from "@/components/sections/security-section";
 import UserAndSessionManagement from "@/components/sections/user-and-session-management-section";
 import UsageSection from "@/components/sections/usage-section";
+import PricingSection from "@/components/sections/pricing-section";
 
-// Main landing page component
 export default function LandingPage() {
   return (
     <div className="min-h-screen bg-bg-1 text-white scroll-smooth">
-      {/* Header/Navigation */}
       <LandingPageHeader />
-
-      {/* Hero Section */}
       <Hero />
-
-      {/* Features Section */}
       <Features />
-
-      {/* Security Section */}
       <Security />
-
-      {/* Authentication Methods Section */}
       <AuthMethods />
-
-      {/* User and Session Management Section */}
       <UserAndSessionManagement />
-
-
-      {/* API Integration Section */}
       <UsageSection />
-
-      {/* Footer */}
+      <PricingSection />
       <LandingPageFooter />
     </div>
   );
 }
-
