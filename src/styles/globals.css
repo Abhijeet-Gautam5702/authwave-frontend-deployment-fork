@@ -41,3 +41,7 @@ body {
 .text-gradient {
   @apply bg-gradient-to-r from-p-accent from-0% to-s-accent to-80% bg-clip-text text-transparent;
 }
+
+.bg-gradient-hover {
+  @apply hover:bg-gradient-to-br hover:from-bg-0 hover:to-transparent;
+}
