@@ -7,6 +7,7 @@ import Security from "@/components/sections/security-section";
 import UserAndSessionManagement from "@/components/sections/user-and-session-management-section";
 import UsageSection from "@/components/sections/usage-section";
 import PricingSection from "@/components/sections/pricing-section";
+import MeetDeveloper from "@/components/sections/meet-the-developer";
 
 export default function LandingPage() {
   return (
@@ -19,6 +20,7 @@ export default function LandingPage() {
       <UserAndSessionManagement />
       <UsageSection />
       <PricingSection />
+      <MeetDeveloper />
       <LandingPageFooter />
     </div>
   );

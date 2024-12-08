@@ -1,10 +1,11 @@
 import Link from "next/link";
 import Image from "next/image";
 import { FaGithub, FaTwitter } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
 
 export default function LandingPageFooter() {
   return (
-    <footer className="w-full px-20 pt-80 2xl:px-40 2xl:pt-160 flex flex-col justify-between items-center text-white text-14 2xl:text-20 bg-bg-2">
+    <footer className="w-full px-20 pt-80 2xl:px-40 2xl:pt-160 flex flex-col justify-between items-center text-white text-14 2xl:text-20 bg-bg-1">
       <div className="w-full flex flex-col justify-between items-stretch gap-10">
         <div className="flex flex-row justify-between items-start gap-80 2xl:gap-100 mb-12">
           {/* Logo and Description */}
@@ -41,7 +42,7 @@ export default function LandingPageFooter() {
                 target="_blank"
                 className="text-white/60 hover:text-white"
               >
-                <FaTwitter className="w-5 h-5 2xl:w-7 2xl:h-7" />
+                <FaXTwitter className="w-5 h-5 2xl:w-7 2xl:h-7" />
               </Link>
             </div>
           </div>
