@@ -38,6 +38,9 @@ export default {
         32: "32px",
         35: "35px",
         40: "40px",
+        50: "50px",
+        60: "60px",
+        80: "80px",
       },
       padding: {
         3: "3px",

@@ -1,7 +1,7 @@
 import { Loader as LoaderIcon } from "lucide-react";
 import Link from "next/link";
 
-interface PrimaryBtnProps
+interface SecondaryBtnProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   text: string;
   className?: string;
@@ -11,7 +11,7 @@ interface PrimaryBtnProps
   onClick?: () => void;
 }
 
-const PrimaryBtn = ({
+const SecondaryBtn = ({
   text,
   type = "button",
   className,
@@ -19,8 +19,8 @@ const PrimaryBtn = ({
   openOnNewTab,
   loading,
   ...props
-}: PrimaryBtnProps) => {
-  const btnClass = `cursor-pointer rounded-4 2xl:rounded-8 bg-gradient-to-r from-p-accent to-s-accent text-white text-14 font-medium 2xl:text-20 px-20 py-10 2xl:px-35 2xl:py-18 ${className}`;
+}: SecondaryBtnProps) => {
+  const btnClass = `cursor-pointer rounded-4 2xl:rounded-8 border-[0.5px] 2xl:border-[1px] text-white text-14 2xl:text-20 px-20 py-10 2xl:px-35 2xl:py-18 ${className}`;
 
   // Return a redirection type button when href is provided
   if (href) {
@@ -50,4 +50,4 @@ const PrimaryBtn = ({
   );
 };
 
-export default PrimaryBtn;
+export default SecondaryBtn;

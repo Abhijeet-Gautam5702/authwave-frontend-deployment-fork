@@ -37,3 +37,7 @@ body {
 .bg-basic {
   @apply bg-bg-3;
 }
+
+.text-gradient {
+  @apply bg-gradient-to-r from-p-accent from-0% to-s-accent to-80% bg-clip-text text-transparent;
+}

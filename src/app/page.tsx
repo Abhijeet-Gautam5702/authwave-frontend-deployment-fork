@@ -2,34 +2,17 @@ import Link from 'next/link'
 import { Github, Twitter, Linkedin, DiscIcon as Discord, Mail, Pen, Key, Shield, Lock, Database, Code, Monitor, RefreshCw, Clock } from 'lucide-react'
 import LandingPageHeader from '@/components/headers/landing-page-header'
 import LandingPageFooter from '@/components/footers/landing-page-footer'
+import Hero from '@/components/sections/hero-section'
 
 // Main landing page component
 export default function LandingPage() {
   return (
-    <div className="min-h-screen bg-[#0D0D0D] text-white">
+    <div className="min-h-screen bg-bg-1 text-white">
       {/* Header/Navigation */}
       <LandingPageHeader />
 
       {/* Hero Section */}
-      <section className="pt-32 pb-20 px-4">
-        <div className="container mx-auto text-center max-w-4xl">
-          <h1 className="text-4xl md:text-6xl font-bold mb-6">
-            <span className="text-gradient">Simplify</span> Secure Authentication for Your Applications
-          </h1>
-          <p className="text-gray-400 text-lg md:text-xl mb-12 max-w-3xl mx-auto">
-            Enterprise-grade authentication and user management platform that lets developers focus on
-            building great products without worrying about complex security infrastructure.
-          </p>
-          <div className="flex justify-center">
-            <Link
-              href="/docs"
-              className="bg-gradient text-white px-8 py-3 rounded-lg hover:opacity-90 transition-opacity text-lg"
-            >
-              View Documentation
-            </Link>
-          </div>
-        </div>
-      </section>
+      <Hero />
 
       {/* Authentication Methods Section */}
       <section className="py-20 px-4 bg-[#1A1A1A]">
