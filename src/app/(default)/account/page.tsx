@@ -1,6 +1,5 @@
 "use client";
 
-import { DangerActionBtn } from "@/components/buttons/action-btn";
 import {
   AccountSettingCard,
   AccountSettingDangerCard,
@@ -12,7 +11,6 @@ import { projectService } from "@/services/project.service";
 import { storeLogout, storeUpdateAdminInfo } from "@/store/auth/auth.slice";
 import { storeResetProjects } from "@/store/project/project.slice";
 import { RootState } from "@/store/store";
-import { Loader, Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -37,7 +35,7 @@ const AccountPage = () => {
     },
   });
 
-  const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(false);
   const { startLoading, stopLoading } = useUniversalLoader();
 
   /* --------- Form Submit Handlers --------- */

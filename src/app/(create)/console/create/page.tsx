@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
-import { Loader, Loader2 } from "lucide-react";
+import {  Loader2 } from "lucide-react";
 import { storeAddProject } from "@/store/project/project.slice";
 import { ErrorNotificationCard } from "@/components/cards/notification-card";
 
