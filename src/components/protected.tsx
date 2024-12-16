@@ -50,7 +50,6 @@ const Protected = <P extends object>(
         dispatch(storeSetProjects(projectsFromLocalStorage));
       } else {
         (async () => {
-          console.log("Fetching projects...");
           try {
             startLoading();
             const response = await projectService.getProjects();

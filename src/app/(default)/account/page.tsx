@@ -27,19 +27,21 @@ const AccountPage = () => {
   const dispatch = useDispatch();
   const router = useRouter();
   const admin = useSelector((state: RootState) => state.auth.admin);
-  const { register, handleSubmit, reset } = useForm<Partial<IAccountFormData>>({
-    defaultValues: {
-      name: admin?.name,
-      email: admin?.email,
-      password: "********",
-    },
-  });
+  const { register, handleSubmit, reset, trigger, getValues } =
+    useForm<IAccountFormData>({
+      defaultValues: {
+        name: admin?.name,
+        email: admin?.email,
+        password: "***********",
+      },
+    });
 
   // const [loading, setLoading] = useState(false);
   const { startLoading, stopLoading } = useUniversalLoader();
 
   /* --------- Form Submit Handlers --------- */
-  const submitName = async (data: Partial<IAccountFormData>) => {
+  const submitName = async (data: IAccountFormData) => {
+    console.log("submitName", data);
     try {
       // setLoading(true);
       startLoading();
@@ -65,7 +67,8 @@ const AccountPage = () => {
     }
   };
 
-  const submitEmail = async (data: Partial<IAccountFormData>) => {
+  const submitEmail = async (data: IAccountFormData) => {
+    console.log("submitEmail", data);
     try {
       // setLoading(true);
       startLoading();
@@ -73,6 +76,7 @@ const AccountPage = () => {
         email: data.email,
       });
       if (response.success) {
+        // console.log(response);
         // Update the admin info in the store
         dispatch(storeUpdateAdminInfo(response.data));
         // Show success toast
@@ -91,7 +95,8 @@ const AccountPage = () => {
     }
   };
 
-  const submitPassword = async (data: Partial<IAccountFormData>) => {
+  const submitPassword = async (data: IAccountFormData) => {
+    console.log("submitPassword", data);
     try {
       // setLoading(true);
       startLoading();
@@ -201,7 +206,23 @@ const AccountPage = () => {
             title="Name"
             description="Do not change your name frequently"
             buttonText="Update"
-            buttonClick={handleSubmit(submitName)}
+            /*
+              NOTE:
+              By default, the formhandler will check and validate all the form fields before submitting the form. 
+
+              To prevent this, we are using the trigger function to check and validate the specific form field before submitting the form.
+
+              - trigger("name") will trigger the validation for the name field
+              - getValues() will get the current values of all the form fields
+              - submitName(getValues()) will submit the form with the current values
+            */
+            buttonClick={() => {
+              trigger("name").then((isValid) => {
+                if (isValid) {
+                  submitName(getValues());
+                }
+              });
+            }}
             inputPlaceholder="Enter your name"
             register={register}
             registerOptions={{
@@ -221,12 +242,19 @@ const AccountPage = () => {
               },
             }}
             inputName="name"
+            inputType="text"
           />
           <AccountSettingCard
             title="Email"
             description="Do not change your email frequently"
             buttonText="Update"
-            buttonClick={handleSubmit(submitEmail)}
+            buttonClick={() => {
+              trigger("email").then((isValid) => {
+                if (isValid) {
+                  submitEmail(getValues());
+                }
+              });
+            }}
             inputPlaceholder="Enter your email"
             register={register}
             registerOptions={{
@@ -237,12 +265,19 @@ const AccountPage = () => {
               },
             }}
             inputName="email"
+            inputType="email"
           />
           <AccountSettingCard
             title="Password"
             description="Change your password frequently to keep your account secure"
             buttonText="Update"
-            buttonClick={handleSubmit(submitPassword)}
+            buttonClick={() => {
+              trigger("password").then((isValid) => {
+                if (isValid) {
+                  submitPassword(getValues());
+                }
+              });
+            }}
             inputPlaceholder="Enter your new password"
             register={register}
             registerOptions={{
