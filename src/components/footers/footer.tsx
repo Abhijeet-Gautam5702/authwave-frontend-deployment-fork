@@ -1,3 +1,4 @@
+import { AUTHWAVE_DOCS_BASE_URL } from "@/constants";
 import Link from "next/link";
 import { FaGithub } from "react-icons/fa";
 
@@ -15,7 +16,7 @@ const Footer = () => {
       {/* Links */}
       <div className="flex flex-row justify-start items-center gap-20 2xl:gap-30">
         <p>{`Version 1.0.2`}</p>
-        <Link href="https://github.com/Auth-Wave/authwave-docs/wiki" target="_blank">
+        <Link href={AUTHWAVE_DOCS_BASE_URL} target="_blank">
           Docs
         </Link>
         <Link href="https://github.com/Abhijeet-Gautam5702" target="_blank">

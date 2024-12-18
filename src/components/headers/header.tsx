@@ -11,6 +11,7 @@ import { MdLogout } from "react-icons/md";
 import { storeLogout } from "@/store/auth/auth.slice";
 import { adminAuthService } from "@/services/admin-auth.service";
 import { storeResetProjects } from "@/store/project/project.slice";
+import { AUTHWAVE_DOCS_BASE_URL } from "@/constants";
 
 const Header = () => {
   const { isAuthenticated } = useSelector((state: RootState) => state.auth);
@@ -57,7 +58,7 @@ const Header = () => {
       {/* Nav items */}
       <div className="flex flex-row justify-center items-center gap-20  2xl:gap-30">
         <Link
-          href="https://github.com/Auth-Wave/authwave-docs/wiki"
+          href={AUTHWAVE_DOCS_BASE_URL}
           target="_blank"
           // className={pathname === "/docs" ? "active-text" : "inactive-text"}
         >

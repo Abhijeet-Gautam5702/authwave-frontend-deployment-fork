@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { FaGithub, FaTwitter } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
+import { AUTHWAVE_DOCS_BASE_URL } from "@/constants";
 
 export default function LandingPageFooter() {
   return (
@@ -53,11 +54,11 @@ export default function LandingPageFooter() {
               items={[
                 {
                   title: "Documentation",
-                  href: "https://github.com/Auth-Wave/authwave-docs/wiki",
+                  href: AUTHWAVE_DOCS_BASE_URL,
                 },
                 {
                   title: "API Reference",
-                  href: "https://github.com/Auth-Wave/authwave-docs/wiki/SDK-Integration",
+                  href: `${AUTHWAVE_DOCS_BASE_URL}/docs/API%20Reference`,
                 },
               ]}
             />

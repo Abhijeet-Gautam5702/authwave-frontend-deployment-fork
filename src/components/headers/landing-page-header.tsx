@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { storeLogin } from "@/store/auth/auth.slice";
 import useUniversalLoader from "../loaders/universal-loader";
+import { AUTHWAVE_DOCS_BASE_URL } from "@/constants";
 
 export default function LandingPageHeader() {
   const dispatch = useDispatch();
@@ -66,7 +67,7 @@ export default function LandingPageHeader() {
           Pricing
         </Link>
         <Link
-          href="https://github.com/Auth-Wave/authwave-docs/wiki"
+          href={AUTHWAVE_DOCS_BASE_URL}
           target="_blank"
           className="text-gray-300 hover:text-white transition-colors"
         >

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import PrimaryBtn from "../buttons/primary-btn";
 import SecondaryBtn from "../buttons/secondary-btn";
+import { AUTHWAVE_DOCS_BASE_URL } from "@/constants";
 
 export default function Hero() {
   return (
@@ -26,7 +27,7 @@ export default function Hero() {
           />
           <SecondaryBtn
             text="View Documentation"
-            href="https://github.com/Auth-Wave/authwave-docs/wiki"
+            href={AUTHWAVE_DOCS_BASE_URL}
             openOnNewTab
             className="text-16 2xl:text-24 rounded-6 2xl:rounded-10 px-32 py-16 2xl:px-40 2xl:py-22 border-p-accent text-p-accent font-medium hover:bg-p-accent/10 transition-colors duration-150"
           />
