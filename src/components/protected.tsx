@@ -9,6 +9,7 @@ import { projectService } from "@/services/project.service";
 import { storeSetProjects } from "@/store/project/project.slice";
 import Persist from "@/store/persist";
 import useUniversalLoader from "./loaders/universal-loader";
+import useWindowWidth from "@/hooks/useWindow.hook";
 
 /*
     PROTECTED COMPONENT
@@ -33,8 +34,8 @@ const Protected = <P extends object>(
     const pathname = usePathname();
 
     // Check if the screen width is less than 1024 and alert the user
-    const [screenWidth, setScreenWidth] = useState<number>(window.innerWidth);
-    if (screenWidth < 1024) {
+    const { width: windowWidth } = useWindowWidth();
+    if (windowWidth < 1024) {
       window.alert(
         "The developer console is not optimized for mobile devices. Please use a desktop or laptop to access the application."
       );
@@ -77,7 +78,7 @@ const Protected = <P extends object>(
     }, [router, pathname]);
 
     // Only render the wrapped component if authenticated and the screen width is greater than or equal to 1024
-    return auth.isAuthenticated && screenWidth >= 1024 ? (
+    return auth.isAuthenticated && windowWidth >= 1024 ? (
       <WrappedComponent {...props} />
     ) : null;
   };
