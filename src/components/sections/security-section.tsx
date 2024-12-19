@@ -10,7 +10,7 @@ const Security = () => {
       <div className="w-full flex-center flex-col text-center gap-12 sm:gap-16 lg:gap-20 2xl:gap-80 px-4 sm:px-6 lg:px-8">
         <div className="flex-center flex-col text-center gap-6 sm:gap-8 lg:gap-10 2xl:gap-18">
           <h2 className="font-bold text-24 sm:text-30 lg:text-40 2xl:text-70 leading-tight">
-            <span className="text-gradient">Uncompromised Security</span> at
+            <span className="text-gradient px-4">Uncompromised Security</span> at
             Every Layer
           </h2>
           <p className="text-white/60 font-normal text-14 sm:text-16 lg:text-18 2xl:text-24 leading-normal max-w-xl sm:max-w-2xl lg:max-w-3xl 2xl:max-w-4xl mx-auto">
