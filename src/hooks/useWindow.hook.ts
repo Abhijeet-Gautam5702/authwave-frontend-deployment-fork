@@ -1,19 +1,35 @@
+"use client";
+
 import { useEffect, useState } from "react";
 
-const useWindowWidth = () => {
-  const [width, setWidth] = useState<number>(0);
+const useWindowWidth = (threshold: number) => {
+  // Initialize with undefined to prevent hydration mismatch
+  const [width, setWidth] = useState<number | undefined>(undefined);
 
   useEffect(() => {
-    // Add event listener to window (only on the client side)
+    // Only run on client side
     if (typeof window !== "undefined") {
-      const handleResize = () => setWidth(window.innerWidth);
+      const handleResize = () => {
+        setWidth(window.innerWidth);
+        if (width! < threshold) {
+          window.alert(
+            "This screen is too small to view this page. Please use a larger screen."
+          );
+        }
+      };
+
+      // Set initial width
       handleResize();
+
+      // Add event listener
       window.addEventListener("resize", handleResize);
+
+      // Cleanup
       return () => window.removeEventListener("resize", handleResize);
     }
   }, []);
 
-  return { width };
+  return width as number;
 };
 
 export default useWindowWidth;
