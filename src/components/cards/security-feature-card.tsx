@@ -26,7 +26,7 @@ const SecurityFeatureCard = ({
             className="text-white/60 text-16 2xl:text-18 flex justify-start items-start gap-6 2xl:gap-8"
           >
             <Check className="text-p-accent w-5 h-5 2xl:w-6 2xl:h-6" />
-            {bullet}
+            <p className="text-left">{bullet}</p>
           </li>
         ))}
       </ul>

@@ -28,7 +28,7 @@ const PrimaryBtn = ({
       <Link href={href} target={openOnNewTab ? "_blank" : "_self"}>
         <button
           disabled={loading}
-          className={`flex-center ${btnClass}`}
+          className={`md:flex-center ${btnClass}`}
           {...props}
         >
           {loading ? <LoaderIcon /> : text}
@@ -42,7 +42,7 @@ const PrimaryBtn = ({
     <button
       disabled={loading}
       type={type}
-      className={` flex-center ${btnClass}`}
+      className={`${btnClass} md:flex-center`}
       {...props}
     >
       {loading ? <LoaderIcon /> : text}

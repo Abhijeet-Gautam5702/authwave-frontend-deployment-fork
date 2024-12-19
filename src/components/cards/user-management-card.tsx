@@ -34,10 +34,10 @@ const UserManagementCard = ({
           >
             <Check className="text-p-accent w-5 h-5 2xl:w-6 2xl:h-6" />
             <div className="w-full flex flex-col justify-start items-start gap-2">
-              <span className="text-16 2xl:text-20 font-medium text-white">
+              <span className="text-16 2xl:text-20 font-medium text-white text-left">
                 {bullet.title}
               </span>
-              <p className="text-14 2xl:text-16">{bullet.description}</p>
+              <p className="text-14 2xl:text-16 text-left">{bullet.description}</p>
             </div>
           </li>
         ))}

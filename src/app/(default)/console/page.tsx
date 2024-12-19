@@ -3,8 +3,6 @@
 import CreateProjectCard from "@/components/cards/create-project-card";
 import ProjectCard from "@/components/cards/project-card";
 import Protected from "@/components/protected";
-import { storeSetProjects } from "@/store/project/project.slice";
-import { projectService } from "@/services/project.service";
 import { RootState } from "@/store/store";
 import { useSelector } from "react-redux";
 

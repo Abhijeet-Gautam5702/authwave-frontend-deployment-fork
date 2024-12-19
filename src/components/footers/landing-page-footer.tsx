@@ -1,16 +1,16 @@
 import Link from "next/link";
 import Image from "next/image";
-import { FaGithub, FaTwitter } from "react-icons/fa";
+import { FaGithub } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { AUTHWAVE_DOCS_BASE_URL } from "@/constants";
 
 export default function LandingPageFooter() {
   return (
-    <footer className="w-full px-20 pt-80 2xl:px-40 2xl:pt-160 flex flex-col justify-between items-center text-white text-14 2xl:text-20 bg-bg-1">
+    <footer className="w-full px-10 py-20 lg:px-20 lg:pt-80 2xl:px-40 2xl:pt-100 flex flex-col justify-between items-center text-white text-14 2xl:text-20 bg-bg-1">
       <div className="w-full flex flex-col justify-between items-stretch gap-10">
-        <div className="flex flex-row justify-between items-start gap-80 2xl:gap-100 mb-12">
+        <div className="flex flex-col lg:flex-row justify-between items-start gap-30 lg:gap-80 2xl:gap-100 mb-12">
           {/* Logo and Description */}
-          <div className="w-1/2 flex flex-col justify-start items-start gap-10 2xl:gap-20">
+          <div className="w-full lg:w-1/2 flex flex-col justify-start items-start gap-10 2xl:gap-20">
             <Link
               href="/"
               className="flex flex-row justify-start items-center gap-4"
@@ -48,7 +48,7 @@ export default function LandingPageFooter() {
             </div>
           </div>
           {/* Footer Columns */}
-          <div className="w-1/2 flex flex-row justify-start items-start gap-20 2xl:gap-50">
+          <div className="w-full lg:w-1/2 flex flex-col lg:flex-row justify-start items-start gap-16 lg:gap-20 2xl:gap-50">
             <FooterColumn
               title="Resources"
               items={[
@@ -80,8 +80,8 @@ export default function LandingPageFooter() {
           </div>
         </div>
         {/* Copyright and Links */}
-        <div className="w-full px-20 py-16 2xl:px-40 2xl:py-32 flex flex-row justify-between items-center text-white/60 text-14 2xl:text-20 border-t-[0.5px] border-white/15 2xl:border-t-[1px] 2xl:border-t-white/25">
-          <div className="flex flex-row justify-start items-center gap-12 2xl:gap-30">
+        <div className="w-full px-10 py-10 lg:px-20 lg:py-16 2xl:px-40 2xl:py-32 flex flex-col lg:flex-row justify-between items-center text-white/60 text-14 2xl:text-20 border-t-[0.5px] border-white/15 2xl:border-t-[1px] 2xl:border-t-white/25">
+          <div className="flex flex-col lg:flex-row justify-start items-center gap-10 lg:gap-12 2xl:gap-30">
             <p>© {new Date().getFullYear()} All Rights Reserved</p>
             {/* GitHub Logo */}
             <Link href="https://github.com/Auth-Wave" target="_blank">
@@ -89,7 +89,7 @@ export default function LandingPageFooter() {
             </Link>
           </div>
           {/* Links */}
-          <div className="flex flex-row justify-start items-center gap-20 2xl:gap-40">
+          <div className="flex flex-col lg:flex-row justify-start items-center gap-10 lg:gap-20 2xl:gap-40 mt-4 lg:mt-0">
             <p>{`Version 1.0.2`}</p>
             {/* <Link href="/docs">Docs</Link> */}
             <div className="flex flex-row justify-start items-center gap-12 2xl:gap-30">
@@ -122,9 +122,9 @@ interface FooterColumnProps {
 
 function FooterColumn({ title, items }: FooterColumnProps) {
   return (
-    <div className="w-1/3">
-      <h3 className="text-14 2xl:text-20 font-semibold mb-4">{title}</h3>
-      <ul className="space-y-3">
+    <div className="w-full lg:w-1/3">
+      <h3 className="text-14 2xl:text-20 font-semibold mb-1 lg:mb-3">{title}</h3>
+      <ul className="space-y-1 lg:space-y-2">
         {items.map((item, index) => (
           <li key={index}>
             <Link

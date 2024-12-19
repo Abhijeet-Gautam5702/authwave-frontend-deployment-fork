@@ -33,12 +33,12 @@ const SessionManagementCard = ({
         {bullets.map((item, index) => (
           <li
             key={index}
-            className="text-white/60 text-16 2xl:text-18 flex justify-start items-start gap-10 2xl:gap-14 bg-bg-2 p-10 2xl:p-14 rounded-6 2xl:rounded-10"
+            className="text-white/60 text-16 2xl:text-18 flex justify-start items-center gap-10 2xl:gap-14 bg-bg-2 p-10 2xl:p-14 rounded-6 2xl:rounded-10"
           >
             <div className="text-p-accent w-5 h-5 2xl:w-6 2xl:h-6">
               {item.icon}
             </div>
-            <span className="text-14 2xl:text-18 font-normal text-white">
+            <span className="text-14 2xl:text-18 font-normal text-white text-left">
               {item.title}
             </span>
           </li>

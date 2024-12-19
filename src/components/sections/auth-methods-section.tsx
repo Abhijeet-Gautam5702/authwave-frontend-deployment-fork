@@ -1,28 +1,27 @@
-import { Key, Mail, Pen, WandSparkles } from "lucide-react";
+import { Key, Mail, WandSparkles } from "lucide-react";
 import AuthMethodCard from "../cards/auth-method-card";
 
 const AuthMethods = () => {
   return (
     <section
-      className="w-full pt-100 pb-50 2xl:pt-60 min-h-screen flex-center bg-bg-2"
+      className="w-full py-70 pb-30 px-10 lg:px-0 min-h-screen flex-center bg-bg-2"
       id="authentication-methods"
     >
-      <div className="w-full flex-center flex-col text-center gap-50 2xl:gap-80">
-        <div className="flex-center flex-col text-center gap-12 2xl:gap-18">
-          <h2 className="font-bold text-40 2xl:text-70 leading-tight">
+      <div className="w-full flex-center flex-col text-center gap-50 sm:gap-16 lg:gap-20 2xl:gap-80 px-4 sm:px-6 lg:px-8">
+        <div className="flex-center flex-col text-center gap-12 sm:gap-8 lg:gap-10 2xl:gap-18">
+          <h2 className="font-bold text-40 sm:text-30 lg:text-40 2xl:text-70 leading-tight">
             Multiple Authentication Methods
           </h2>
-          <p className="text-white/60 font-normal text-18 2xl:text-24 leading-normal mx-auto">
+          <p className="text-white/60 font-normal text-18 sm:text-16 lg:text-18 2xl:text-24 leading-normal max-w-xl sm:max-w-2xl lg:max-w-3xl 2xl:max-w-4xl mx-auto">
             Choose from a variety of secure authentication options to match your
             application's needs
           </p>
         </div>
-        <div className="w-full grid grid-cols-3 grid-rows-1 gap-24 2xl:gap-35 px-24 2xl:px-50">
+        <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-12 lg:gap-16 2xl:gap-35 px-4 sm:px-6 lg:px-8 2xl:px-50">
           {authMethods.map((method, index) => (
             <AuthMethodCard key={index} {...method} className="w-full h-full" />
           ))}
         </div>
-        <div className="w-full grid grid-cols-3 grid-rows-1 gap-24 2xl:gap-35 px-24 2xl:px-50"></div>
       </div>
     </section>
   );

@@ -6,21 +6,21 @@ import { FaXTwitter } from "react-icons/fa6";
 const MeetDeveloper = () => {
   return (
     <section
-      className="w-full pt-100 pb-50 2xl:pt-0 min-h-screen flex-center bg-bg-2"
+      className="w-full py-70 pb-30 px-10 lg:px-0 min-h-screen flex-center bg-bg-2"
       id="meet-developer"
     >
-      <div className="w-full flex-center flex-col text-center gap-50 2xl:gap-80">
-        <div className="flex-center flex-col text-center gap-12 2xl:gap-18">
-          <h2 className="font-bold text-40 2xl:text-70 leading-tight text-white">
+      <div className="w-full flex-center flex-col text-center gap-50 sm:gap-16 lg:gap-20 2xl:gap-80 px-4 sm:px-6 lg:px-8">
+        <div className="flex-center flex-col text-center gap-12 sm:gap-8 lg:gap-10 2xl:gap-18">
+          <h2 className="font-bold text-40 sm:text-30 lg:text-40 2xl:text-70 leading-tight text-white">
             Meet the <span className="text-gradient">Developer</span>
           </h2>
-          <p className="text-white/60 font-normal text-18 2xl:text-24 leading-normal mx-auto max-w-2xl">
+          <p className="text-white/60 font-normal text-18 sm:text-16 lg:text-18 2xl:text-24 leading-normal max-w-xl sm:max-w-2xl lg:max-w-3xl 2xl:max-w-4xl mx-auto">
             I value your feedback! Help me improve Auth Wave by sharing your
             thoughts and requesting new features for upcoming versions.
           </p>
         </div>
-        <div className="flex flex-col md:flex-row items-center justify-center gap-24 2xl:gap-35">
-          <div className="w-48 h-48 rounded-full overflow-hidden p-4 border-2 border-white">
+        <div className="flex flex-col md:flex-row items-center justify-center gap-24 sm:gap-16 lg:gap-20 2xl:gap-35">
+          <div className="w-48 h-48 sm:w-36 sm:h-36 lg:w-48 lg:h-48 rounded-full overflow-hidden p-4 border-2 border-white">
             <Image
               src={`/assets/images/me.jpg`}
               alt="Developer"
@@ -30,7 +30,7 @@ const MeetDeveloper = () => {
             />
           </div>
           <div className="text-center md:text-left">
-            <h3 className="text-2xl font-semibold text-white mb-2">
+            <h3 className="text-2xl sm:text-xl lg:text-2xl font-semibold text-white mb-2">
               Abhijeet Gautam
             </h3>
             <p className="text-white/60 mb-4">

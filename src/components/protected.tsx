@@ -3,7 +3,7 @@
 import { storeLogin } from "@/store/auth/auth.slice";
 import { RootState } from "@/store/store";
 import { useRouter, usePathname } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { projectService } from "@/services/project.service";
 import { storeSetProjects } from "@/store/project/project.slice";
@@ -31,6 +31,15 @@ const Protected = <P extends object>(
     const dispatch = useDispatch();
     const router = useRouter();
     const pathname = usePathname();
+
+    // Check if the screen width is less than 1024 and alert the user
+    const [screenWidth, setScreenWidth] = useState<number>(window.innerWidth);
+    if (screenWidth < 1024) {
+      window.alert(
+        "The developer console is not optimized for mobile devices. Please use a desktop or laptop to access the application."
+      );
+      return;
+    }
 
     // Set the auth and projects in the redux-store from the session-storage
     useEffect(() => {
@@ -60,15 +69,17 @@ const Protected = <P extends object>(
             console.log(error);
           } finally {
             // setTimeout(() => {
-              stopLoading();
+            stopLoading();
             // }, 1000);
           }
         })();
       }
     }, [router, pathname]);
 
-    // Only render the wrapped component if authenticated
-    return auth.isAuthenticated ? <WrappedComponent {...props} /> : null;
+    // Only render the wrapped component if authenticated and the screen width is greater than or equal to 1024
+    return auth.isAuthenticated && screenWidth >= 1024 ? (
+      <WrappedComponent {...props} />
+    ) : null;
   };
 
   return ProtectedComponent;
