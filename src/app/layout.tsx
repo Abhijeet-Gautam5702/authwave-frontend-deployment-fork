@@ -11,6 +11,9 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Auth Wave",
   description: "Open source authentication service provider",
+  icons: {
+    icon: "/favicon.ico",
+  },
 };
 
 export default function RootLayout({

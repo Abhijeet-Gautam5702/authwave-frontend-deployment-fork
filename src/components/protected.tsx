@@ -21,6 +21,11 @@ const Protected = <P extends object>(
     const router = useRouter();
     const pathname = usePathname();
 
+    const width = useWindowWidth(1024);
+    if (width < 1024) {
+      router.back();
+    }
+
     useEffect(() => {
       const authFromLocalStorage = Persist.auth.get();
       const projectsFromLocalStorage = Persist.projects.get();
@@ -51,16 +56,10 @@ const Protected = <P extends object>(
       }
     }, [router, pathname]);
 
-    // Use window width from dynamic import
-    useWindowWidth(1024);
-
-    return auth.isAuthenticated ? (
-      <WrappedComponent {...props} />
-    ) : null;
+    return auth.isAuthenticated ? <WrappedComponent {...props} /> : null;
   };
 
   return ProtectedComponent;
 };
 
 export default Protected;
-
