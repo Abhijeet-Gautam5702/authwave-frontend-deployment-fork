@@ -4,11 +4,11 @@ const useWindowWidth = () => {
   const [width, setWidth] = useState<number>(0);
 
   useEffect(() => {
-    const handleResize = () => setWidth(window.innerWidth);
     // Add event listener to window (only on the client side)
     if (typeof window !== "undefined") {
-      window.addEventListener("resize", handleResize);
+      const handleResize = () => setWidth(window.innerWidth);
       handleResize();
+      window.addEventListener("resize", handleResize);
       return () => window.removeEventListener("resize", handleResize);
     }
   }, []);
