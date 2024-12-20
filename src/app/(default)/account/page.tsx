@@ -12,10 +12,13 @@ import { storeLogout, storeUpdateAdminInfo } from "@/store/auth/auth.slice";
 import { storeResetProjects } from "@/store/project/project.slice";
 import { RootState } from "@/store/store";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import useUniversalLoader from "@/components/loaders/universal-loader";
+import { useToast } from "@/utils/toast-notification";
+import { FaUserCheck } from "react-icons/fa";
+import { IoCheckmarkCircle } from "react-icons/io5";
+import { RiFileShredFill } from "react-icons/ri";
 
 export interface IAccountFormData {
   name: string;
@@ -51,13 +54,20 @@ const AccountPage = () => {
       if (response.success) {
         // Update the admin info in the store
         dispatch(storeUpdateAdminInfo(response.data));
-        // Show success toast
 
         // reset the form to the new values
         reset((formValues) => ({
           ...formValues,
           name: response.data.name,
         }));
+
+        // Send a toast notification
+        useToast({
+          message: "Admin Name updated successfully",
+          delay: 0,
+          icon: FaUserCheck,
+          iconStyle: "text-p-accent",
+        });
       }
     } catch (error) {
       console.log(error);
@@ -79,13 +89,20 @@ const AccountPage = () => {
         // console.log(response);
         // Update the admin info in the store
         dispatch(storeUpdateAdminInfo(response.data));
-        // Show success toast
 
         // reset the form to the new values
         reset((formValues) => ({
           ...formValues,
           email: response.data.email,
         }));
+
+        // Send a toast notification
+        useToast({
+          message: "Admin Email updated successfully",
+          delay: 0,
+          icon: FaUserCheck,
+          iconStyle: "text-p-accent",
+        });
       }
     } catch (error) {
       console.log(error);
@@ -104,13 +121,19 @@ const AccountPage = () => {
         password: data.password,
       });
       if (response.success) {
-        // Show success toast
-
         // reset the form to the new values
         reset((formValues) => ({
           ...formValues,
           password: response.data.password,
         }));
+
+        // Send a toast notification
+        useToast({
+          message: "Admin Password updated successfully",
+          delay: 0,
+          icon: FaUserCheck,
+          iconStyle: "text-p-accent",
+        });
       }
     } catch (error) {
       console.log(error);
@@ -134,6 +157,14 @@ const AccountPage = () => {
         dispatch(storeLogout());
         // Redirect to the homepage
         router.replace("/");
+
+        // Send a toast notification
+        useToast({
+          message: "Admin Account deleted",
+          delay: 300,
+          icon: RiFileShredFill,
+          iconStyle: "text-p-accent",
+        });
       }
     } catch (error) {
       console.log(error);
@@ -154,7 +185,15 @@ const AccountPage = () => {
         // Reset the projects in the store
         dispatch(storeResetProjects());
 
-        console.log(response);
+        // Send a toast notification
+        useToast({
+          message: "All projects within this account have been deleted",
+          delay: 0,
+          icon: RiFileShredFill,
+          iconStyle: "text-p-accent",
+        });
+
+        // console.log(response);
       }
     } catch (error) {
       console.log(error);
@@ -181,10 +220,6 @@ const AccountPage = () => {
       stopLoading();
     }
   };
-
-  // if (loading) {
-  //   return <Loader2 className="w-10 h-10 animate-spin" />;
-  // }
 
   return (
     <div className="w-full grow  flex flex-col justify-start items-center gap-0 p-0">
@@ -304,14 +339,14 @@ const AccountPage = () => {
             title="Delete All Projects"
             description="All projects under this Auth Wave account will be deleted permanently"
             buttonText="DELETE ALL PROJECTS"
-            buttonClick={handleSubmit(deleteAllProjects)}
+            buttonClick={deleteAllProjects}
           />
           {/* Delete Account Card */}
           <AccountSettingDangerCard
             title="Delete Account"
             description="Your Auth Wave account and all the projects will be deleted permanently"
             buttonText="DELETE ACCOUNT"
-            buttonClick={handleSubmit(deleteAccount)}
+            buttonClick={deleteAccount}
           />
         </section>
       </div>

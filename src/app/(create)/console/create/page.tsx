@@ -7,9 +7,11 @@ import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
-import {  Loader2 } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import { storeAddProject } from "@/store/project/project.slice";
 import { ErrorNotificationCard } from "@/components/cards/notification-card";
+import { IoCheckmarkCircle } from "react-icons/io5";
+import { useToast } from "@/utils/toast-notification";
 
 const CreateProjectPage = () => {
   const {
@@ -48,13 +50,19 @@ const CreateProjectPage = () => {
         // Redirect to projects page on success
         router.push("/console");
 
-        // Show success toast
-
         // Reset form
         reset({
           projectName: "",
           appName: "",
           appEmail: "",
+        });
+
+        // Send a toast notification
+        useToast({
+          message: "New project created successfully",
+          delay: 300,
+          icon: IoCheckmarkCircle,
+          iconStyle: "text-p-accent",
         });
       }
     } catch (error) {

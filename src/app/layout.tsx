@@ -1,10 +1,9 @@
 import { Metadata } from "next";
 import "@/styles/globals.css";
-import Footer from "@/components/footers/footer";
-import Header from "@/components/headers/header";
 import { Inter } from "next/font/google";
 import StoreProvider from "@/providers/store-provider";
 import { Analytics } from "@vercel/analytics/react";
+import { Toaster } from "react-hot-toast";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,6 +23,11 @@ export default function RootLayout({
   return (
     <html lang="en" className={inter.className}>
       <body className="bg-bg-1 flex flex-col justify-start items-stretch min-h-screen">
+        <Toaster
+          toastOptions={{
+            duration: 1500,
+          }}
+        />
         <Analytics />
         <StoreProvider>{children}</StoreProvider>
       </body>

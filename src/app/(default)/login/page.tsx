@@ -9,6 +9,9 @@ import { adminAuthService } from "@/services/admin-auth.service";
 import { useDispatch, useSelector } from "react-redux";
 import { storeLogin } from "@/store/auth/auth.slice";
 import { useRouter } from "next/navigation";
+import { useToast } from "@/utils/toast-notification";
+import { IoCheckmarkCircle, IoLockOpen } from "react-icons/io5";
+import { SectionLoader } from "@/components/loaders/section-loader";
 
 interface LoginFormInputs {
   email: string;
@@ -42,12 +45,18 @@ const LoginPage = () => {
         // Dispatch an action to login
         dispatch(storeLogin(response.data));
 
-        // Send a toast notification
-
         // Clear the form
         reset();
         // Redirect to the console
         router.push("/console");
+
+        // Send a toast notification
+        useToast({
+          message: "Logged in successfully",
+          delay: 300,
+          icon: IoLockOpen,
+          iconStyle: "text-p-accent",
+        });
       }
       clearErrors();
     } catch (error: any) {
@@ -59,7 +68,7 @@ const LoginPage = () => {
   };
 
   if (loading) {
-    return null;
+    return <SectionLoader />;
   }
 
   return (

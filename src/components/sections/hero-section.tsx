@@ -5,7 +5,7 @@ import { AUTHWAVE_DOCS_BASE_URL } from "@/constants";
 
 export default function Hero() {
   return (
-    <section className="w-full mt-12 2xl:mt-16 min-h-screen flex-center">
+    <section className="w-full mt-12 px-10 2xl:mt-16 min-h-screen flex-center">
       <div className="w-full flex-center flex-col text-center gap-14 2xl:gap-20 px-4 sm:px-6 lg:px-8">
         {/* Title */}
         <h1 className="font-bold text-30 sm:text-40 md:text-50 2xl:text-80 leading-tight">

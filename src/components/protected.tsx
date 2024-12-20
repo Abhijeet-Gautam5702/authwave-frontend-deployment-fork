@@ -10,6 +10,9 @@ import { storeSetProjects } from "@/store/project/project.slice";
 import Persist from "@/store/persist";
 import useUniversalLoader from "./loaders/universal-loader";
 import useWindowWidth from "@/hooks/useWindow.hook";
+import { useToast } from "@/utils/toast-notification";
+import { MdOutlineMobileOff } from "react-icons/md";
+import { IoLockClosed } from "react-icons/io5";
 
 const Protected = <P extends object>(
   WrappedComponent: React.ComponentType<P>
@@ -24,6 +27,12 @@ const Protected = <P extends object>(
     const width = useWindowWidth(1024);
     if (width < 1024) {
       router.back();
+      useToast({
+        message: "This page can be viewed in desktop only.",
+        delay: 300,
+        icon: MdOutlineMobileOff,
+        iconStyle: "text-p-accent",
+      });
     }
 
     useEffect(() => {
@@ -32,6 +41,12 @@ const Protected = <P extends object>(
 
       if (!authFromLocalStorage) {
         router.replace("/login");
+        useToast({
+          message: "Please login to access the developer console",
+          delay: 300,
+          icon: IoLockClosed,
+          iconStyle: "text-p-accent",
+        });
         return;
       } else {
         dispatch(storeLogin(authFromLocalStorage));
