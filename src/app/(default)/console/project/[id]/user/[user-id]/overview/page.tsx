@@ -15,6 +15,9 @@ import { RootState } from "@/store/store";
 import { useSelector } from "react-redux";
 import { AccountSettingCard } from "@/components/cards/account-setting-card";
 import { SectionLoader } from "@/components/loaders/section-loader";
+import { useToast } from "@/utils/toast-notification";
+import { BiSolidUserDetail } from "react-icons/bi";
+import { FaCircleCheck, FaTrash, FaUserShield } from "react-icons/fa6";
 
 interface IUserFormData {
   username: string;
@@ -42,7 +45,6 @@ const OverviewPage = () => {
           userId
         );
         if (response.success) {
-          console.log(response.data.user);
           setUser(response.data.user);
           reset({
             username: response.data.user.username,
@@ -61,7 +63,6 @@ const OverviewPage = () => {
     register,
     handleSubmit,
     reset,
-    clearErrors,
     formState: { errors },
   } = useForm<IUserFormData>({
     defaultValues: {
@@ -70,7 +71,7 @@ const OverviewPage = () => {
     },
   });
 
-  // Card-methods
+  /* --------------------------- CARD METHODS ------------------------------ */
   const submitName = async (data: Partial<IUserFormData>) => {
     try {
       setLoading(true);
@@ -83,9 +84,6 @@ const OverviewPage = () => {
         }
       );
       if (response.success) {
-        console.log(response); //debugging
-        // Send success toast notification
-
         // reset the form
         reset({
           username: data.username,
@@ -97,6 +95,14 @@ const OverviewPage = () => {
           ...prev,
           username: data.username,
         }));
+
+        // Send a toast notification
+        useToast({
+          message: "User name updated successfully",
+          delay: 0,
+          icon: FaCircleCheck,
+          iconStyle: "text-p-accent",
+        });
       }
     } catch (error) {
       console.log(error);
@@ -115,9 +121,6 @@ const OverviewPage = () => {
         { email: data.email }
       );
       if (response.success) {
-        console.log(response); //debugging
-        // Send success toast notification
-
         // reset the form
         reset({
           username: user?.username,
@@ -130,6 +133,14 @@ const OverviewPage = () => {
           isVerified: false,
           email: data.email,
         }));
+
+        // Send a toast notification
+        useToast({
+          message: "User Email updated successfully",
+          delay: 0,
+          icon: FaCircleCheck,
+          iconStyle: "text-p-accent",
+        });
       }
     } catch (error) {
       console.log(error);
@@ -147,11 +158,16 @@ const OverviewPage = () => {
         userId
       );
       if (response.success) {
-        console.log(response); //debugging
-        // Send success toast notification
-
         // redirect to the project-overview page
         router.replace(`/console/project/${project?._id}/overview/users`);
+
+        // Send a toast notification
+        useToast({
+          message: "User deleted successfully",
+          delay: 300,
+          icon: FaTrash,
+          iconStyle: "text-p-accent",
+        });
       }
     } catch (error) {
       console.log(error);
@@ -164,7 +180,13 @@ const OverviewPage = () => {
 
   const verifyUser = async () => {
     if (user?.isVerified) {
-      // Send toast notification
+      // Send a toast notification
+      useToast({
+        message: "User is already verified",
+        delay: 0,
+        icon: FaUserShield,
+        iconStyle: "text-p-accent",
+      });
       return;
     }
     try {
@@ -175,14 +197,19 @@ const OverviewPage = () => {
         userId
       );
       if (response.success) {
-        console.log(response); //debugging
-        // Send success toast notification
-
         // Modify the user state
         setUser((prev: any) => ({
           ...prev,
           isVerified: true,
         }));
+
+        // Send a toast notification
+        useToast({
+          message: "User verification completed",
+          delay: 0,
+          icon: FaUserShield,
+          iconStyle: "text-p-accent",
+        });
       }
     } catch (error) {
       console.log(error);
@@ -192,14 +219,6 @@ const OverviewPage = () => {
   };
 
   // FEATURE TO BE ADDED IN THE FUTURE
-  const promoteUser = async () => {
-    try {
-      // TODO: Implement user promotion logic
-    } catch (error) {
-      console.log(error);
-    } finally {
-    }
-  };
 
   if (loading) {
     return <SectionLoader />;

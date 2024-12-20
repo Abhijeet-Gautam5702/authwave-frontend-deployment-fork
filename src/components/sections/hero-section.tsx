@@ -15,8 +15,8 @@ export default function Hero() {
         {/* Subtitle */}
         <p className="text-white/60 text-16 sm:text-18 md:text-20 2xl:text-26 leading-normal max-w-xl sm:max-w-2xl md:max-w-3xl 2xl:max-w-4xl mx-auto">
           Write hundreds of lines of code to create exceptional apps <br />
-          <span className="italic font-bold text-white px-6"> not </span> to
-          set up authentication
+          <span className="italic font-bold text-white px-6"> not </span> to set
+          up authentication
         </p>
         {/* Button */}
         <div className="w-full mt-8 2xl:mt-16 flex-center gap-10 sm:gap-14 md:gap-20 2xl:gap-30">

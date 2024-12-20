@@ -6,12 +6,12 @@ import { usePathname, useRouter } from "next/navigation";
 import PrimaryBtn from "@/components/buttons/primary-btn";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "@/store/store";
-import ActionBtn from "../buttons/action-btn";
 import { MdLogout } from "react-icons/md";
 import { storeLogout } from "@/store/auth/auth.slice";
 import { adminAuthService } from "@/services/admin-auth.service";
 import { storeResetProjects } from "@/store/project/project.slice";
 import { AUTHWAVE_DOCS_BASE_URL } from "@/constants";
+import { useToast } from "@/utils/toast-notification";
 
 const Header = () => {
   const { isAuthenticated } = useSelector((state: RootState) => state.auth);
@@ -24,8 +24,6 @@ const Header = () => {
     try {
       const response = await adminAuthService.logout();
       if (response.success) {
-        // send success toast notification
-
         // redirect to the home page
         router.replace("/");
 
@@ -33,7 +31,15 @@ const Header = () => {
         setTimeout(() => {
           dispatch(storeLogout());
           dispatch(storeResetProjects());
-        }, 1000);
+        }, 300);
+
+        // Send a toast notification
+        useToast({
+          message: "Logged out successfully",
+          delay: 300,
+          icon: MdLogout,
+          iconStyle: "text-p-accent",
+        });
       }
     } catch (error) {
       console.log(error);

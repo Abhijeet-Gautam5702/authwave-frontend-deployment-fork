@@ -1,9 +1,11 @@
+import { useToast } from "@/utils/toast-notification";
 import ActionBtn from "../buttons/action-btn";
 import {
   AccountSettingCard,
   AccountSettingDangerCard,
 } from "./account-setting-card";
 import { UseFormRegister } from "react-hook-form";
+import { MdOutlinePendingActions } from "react-icons/md";
 
 interface IUserFormData {
   name: string;
@@ -82,7 +84,15 @@ export const UserDetailsCard = ({
       <div className="w-full flex flex-row justify-end items-center gap-10">
         <ActionBtn
           text={"Block"}
-          onClick={() => {}}
+          onClick={() => {
+            // Send a toast notification
+            useToast({
+              message: "Feature coming soon",
+              delay: 0,
+              icon: MdOutlinePendingActions,
+              iconStyle: "text-p-accent",
+            });
+          }}
           className="px-20 py-8 2xl:px-35 2xl:py-14 text-14 2xl:text-18 text-white font-medium"
         />
         <ActionBtn

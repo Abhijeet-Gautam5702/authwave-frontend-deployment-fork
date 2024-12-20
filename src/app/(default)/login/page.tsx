@@ -6,11 +6,11 @@ import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { adminAuthService } from "@/services/admin-auth.service";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { storeLogin } from "@/store/auth/auth.slice";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/utils/toast-notification";
-import { IoCheckmarkCircle, IoLockOpen } from "react-icons/io5";
+import { IoLockOpen } from "react-icons/io5";
 import { SectionLoader } from "@/components/loaders/section-loader";
 
 interface LoginFormInputs {

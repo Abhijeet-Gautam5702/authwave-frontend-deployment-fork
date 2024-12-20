@@ -6,7 +6,6 @@ import {
   LoginMethodsCard,
   DeleteProjectCard,
 } from "@/components/cards/project-setting-card";
-import ProjectNavbar from "@/components/navbars/project-navbar";
 import Protected from "@/components/protected";
 import { getProjectById } from "@/store/project/project.slice";
 import { RootState } from "@/store/store";

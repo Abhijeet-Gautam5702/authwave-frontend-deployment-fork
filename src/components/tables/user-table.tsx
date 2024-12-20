@@ -3,9 +3,11 @@
 import { projectService } from "@/services/project.service";
 import { getProjectById } from "@/store/project/project.slice";
 import { RootState } from "@/store/store";
+import { useToast } from "@/utils/toast-notification";
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import { useEffect } from "react";
+import { FaCheckSquare } from "react-icons/fa";
+import { FaTrash, FaUserShield } from "react-icons/fa6";
 import { FiCopy } from "react-icons/fi";
 import { HiOutlineTrash } from "react-icons/hi2";
 import { MdBlock } from "react-icons/md";
@@ -32,11 +34,16 @@ export default function UsersTable({
         userId
       );
       if (response.success) {
-        console.log(response); // debugging
-        // Send success toast notification
-
         // Update the users state
         setUsers(users.filter((user) => user._id !== userId));
+
+        // Send a toast notification
+        useToast({
+          message: "User deleted successfully",
+          delay: 0,
+          icon: FaTrash,
+          iconStyle: "text-p-accent",
+        });
       }
     } catch (error) {
       console.log(error);
@@ -60,15 +67,20 @@ export default function UsersTable({
         email
       );
       if (response.success) {
-        console.log(response); // debugging
-        // Send success toast notification
-
         // Update the users state
         setUsers(
           users.map((user) =>
             user._id === userId ? { ...user, isVerified: true } : user
           )
         );
+
+        // Send a toast notification
+        useToast({
+          message: "User verification completed",
+          delay: 0,
+          icon: FaUserShield,
+          iconStyle: "text-p-accent",
+        });
       }
     } catch (error) {
       console.log(error);
@@ -120,6 +132,14 @@ export default function UsersTable({
                     className="flex-center w-fit gap-10 p-8 2xl:px-14 2xl:py-8  rounded-full bg-bg-3/20 hover:scale-105 transition-transform duration-100 cursor-pointer"
                     onClick={() => {
                       navigator.clipboard.writeText(user._id);
+
+                      // Send a toast notification
+                      useToast({
+                        message: "Copied to clipboard",
+                        delay: 0,
+                        icon: FaCheckSquare,
+                        iconStyle: "text-p-accent",
+                      });
                     }}
                   >
                     <span className="font-medium text-12 2xl:text-14 text-overflow-ellipsis">
@@ -157,7 +177,7 @@ export default function UsersTable({
                   >
                     {user.isVerified ? "verified" : "unverified"}
                   </div>
-                  <span className="w-1/2 absolute left-1/2 -translate-x-2/3 px-10 py-4 bg-bg-3 text-white text-12 2xl:text-16 rounded-4 2xl:rounded-8 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+                  <span className={`absolute left-1/2 -translate-x-1/2 px-10 py-4 bg-bg-3 text-white text-12 2xl:text-16 rounded-4 2xl:rounded-8 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none ${user.isVerified ? "cursor-not-allowed bg-transparent" : "cursor-pointer"}`}>
                     {user.isVerified ? null : "verify"}
                   </span>
                 </div>
@@ -172,9 +192,9 @@ export default function UsersTable({
                 <div className="flex-grow flex flex-row justify-end items-center gap-14 2xl:gap-22 py-12 2xl:py-16">
                   {/* Details */}
                   <Link
-                    href={`/console/project/${
-                      params.id as string
-                    }/user/${user._id}/overview`}
+                    href={`/console/project/${params.id as string}/user/${
+                      user._id
+                    }/overview`}
                   >
                     <div className="group relative">
                       <PiDotsThreeBold className="text-white font-bold transition-colors duration-100 h-[20px] w-[20px] 2xl:h-[24px] 2xl:w-[24px] cursor-pointer" />

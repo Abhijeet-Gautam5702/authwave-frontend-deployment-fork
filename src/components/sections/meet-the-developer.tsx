@@ -9,8 +9,8 @@ const MeetDeveloper = () => {
       className="w-full py-70 pb-30 px-10 lg:px-0 min-h-screen flex-center bg-bg-2"
       id="meet-developer"
     >
-      <div className="w-full flex-center flex-col text-center gap-50 sm:gap-16 lg:gap-20 2xl:gap-80 px-4 sm:px-6 lg:px-8">
-        <div className="flex-center flex-col text-center gap-12 sm:gap-8 lg:gap-10 2xl:gap-18">
+      <div className="w-full flex-center flex-col text-center gap-50 sm:gap-16 lg:gap-30 2xl:gap-80 px-4 sm:px-6 lg:px-8">
+        <div className="flex-center flex-col text-center gap-12 sm:gap-8 lg:gap-14 2xl:gap-18">
           <h2 className="font-bold text-40 sm:text-30 lg:text-40 2xl:text-70 leading-tight text-white">
             Meet the <span className="text-gradient">Developer</span>
           </h2>

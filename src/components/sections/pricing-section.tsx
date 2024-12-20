@@ -6,13 +6,13 @@ const PricingSection = () => {
     >
       <div className="w-full flex-center flex-col text-center gap-20 sm:gap-16 lg:gap-20 px-4 sm:px-6 lg:px-8">
         {/* NEW FEATURES COMING SOON LABEL */}
-        <div className="flex-center flex-row gap-12 px-20 sm:px-24 lg:px-30 py-8 sm:py-10 lg:py-12 rounded-full bg-s-accent/15 ring-1 ring-s-accent/50">
-          <p className="text-center text-14 sm:text-16 lg:text-18 text-s-accent font-medium">
+        <div className="flex-center flex-row gap-12 px-20 sm:px-24 lg:px-30 py-8 sm:py-10  rounded-full bg-s-accent/15 ring-1 ring-s-accent/50">
+          <p className="text-center text-14 sm:text-16  text-s-accent font-medium">
             New features coming soon
           </p>
         </div>
         {/* TITLE AND DESCRIPTION */}
-        <div className="flex-center flex-col text-center gap-12 sm:gap-8 lg:gap-10 2xl:gap-18">
+        <div className="flex-center flex-col text-center gap-12 sm:gap-8 lg:gap-14 2xl:gap-18">
           <h2 className="font-bold text-40 sm:text-30 lg:text-40 2xl:text-70 leading-tight">
             This MVP is{" "}
             <span className="text-gradient italic px-10">free to use</span> for

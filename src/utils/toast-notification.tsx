@@ -17,7 +17,12 @@ export const useToast = ({ message, delay, icon: Icon, iconStyle }: IToast) => {
           t.visible ? "animate-enter" : "animate-leave"
         }`}
       >
-        {Icon && <Icon size={16} className={` w-[16px] h-[16px] md:w-[18px] md:h-[18px] ${iconStyle}`} />}
+        {Icon && (
+          <Icon
+            size={17}
+            className={` w-[17px] h-[17px] md:w-[20px] md:h-[20px] ${iconStyle}`}
+          />
+        )}
         {message}
       </div>
     ));

@@ -18,6 +18,8 @@ import ToggleSwitch from "../toggle-swtich";
 import { AccountSettingDangerCard } from "./account-setting-card";
 import { useRouter, usePathname } from "next/navigation";
 import Textarea from "@/components/textarea";
+import { useToast } from "@/utils/toast-notification";
+import { FaCircleCheck, FaKey, FaTrash } from "react-icons/fa6";
 
 /* --------------- PROJECT SETTING SECURITY CARD --------------- */
 interface SecurityCardProps {
@@ -236,9 +238,6 @@ export const CredentialsCard = ({ project }: CredentialsCardProps) => {
         project.projectKey
       );
       if (response.success) {
-        console.log(response);
-        // Send success toast
-
         // update the project store
         dispatch(
           storeUpdateProject({
@@ -246,6 +245,14 @@ export const CredentialsCard = ({ project }: CredentialsCardProps) => {
             projectKey: response.data.projectKey,
           })
         );
+
+        // Send a toast notification
+        useToast({
+          message: "New Project Key generated successfully",
+          delay: 0,
+          icon: FaCircleCheck,
+          iconStyle: "text-p-accent",
+        });
 
         // reset the form values
         reset({
@@ -362,8 +369,6 @@ export const DetailsCard = ({ project }: DetailsCardProps) => {
           data.appName
         );
         if (response.success) {
-          // Send success toast notification
-
           // Update the project-store
           dispatch(
             storeUpdateProject({
@@ -371,6 +376,14 @@ export const DetailsCard = ({ project }: DetailsCardProps) => {
               appName: data.appName,
             })
           );
+
+          // Send a toast notification
+          useToast({
+            message: "App Name updated successfully",
+            delay: 0,
+            icon: FaCircleCheck,
+            iconStyle: "text-p-accent",
+          });
 
           // reset the form
           reset({
@@ -387,8 +400,6 @@ export const DetailsCard = ({ project }: DetailsCardProps) => {
           data.appEmail
         );
         if (response.success) {
-          // Send success toast notification
-
           // Update the project-store
           dispatch(
             storeUpdateProject({
@@ -396,6 +407,14 @@ export const DetailsCard = ({ project }: DetailsCardProps) => {
               appEmail: data.appEmail,
             })
           );
+
+          // Send a toast notification
+          useToast({
+            message: "App Email updated successfully",
+            delay: 0,
+            icon: FaCircleCheck,
+            iconStyle: "text-p-accent",
+          });
 
           // reset the form
           reset({
@@ -530,6 +549,7 @@ export const DetailsCard = ({ project }: DetailsCardProps) => {
     </section>
   );
 };
+
 // LOGIN METHODS CARD
 interface LoginMethodsCardProps {
   project: Project;
@@ -571,8 +591,6 @@ export const LoginMethodsCard = ({ project }: LoginMethodsCardProps) => {
         data
       );
       if (response.success) {
-        // Send success toast notification
-
         // Update the project-store
         dispatch(
           storeUpdateProject({
@@ -580,6 +598,14 @@ export const LoginMethodsCard = ({ project }: LoginMethodsCardProps) => {
             config: { loginMethods: data },
           })
         );
+
+        // Send a toast notification
+        useToast({
+          message: "Login Methods updated successfully",
+          delay: 0,
+          icon: FaKey,
+          iconStyle: "text-p-accent",
+        });
 
         // reset the form to new values
         reset({
@@ -667,7 +693,6 @@ export const DeleteProjectCard = ({ project }: DeleteProjectCardProps) => {
       setIsLoading(true);
       const response = await projectService.deleteProject(projectId);
       if (response.success) {
-        console.log(response);
         // redirect to projects page
         router.push("/console");
 
@@ -679,14 +704,19 @@ export const DeleteProjectCard = ({ project }: DeleteProjectCardProps) => {
         */
         setTimeout(() => {
           dispatch(storeDeleteProject(projectId));
-        }, 100);
+        }, 300);
 
-        // Send success toast notification
+        // Send a toast notification
+        useToast({
+          message: "Project deleted successfully",
+          delay: 300,
+          icon: FaTrash,
+          iconStyle: "text-p-accent",
+        });
       }
     } catch (error) {
       console.log(error);
       setIsLoading(false);
-    } finally {
     }
   };
 

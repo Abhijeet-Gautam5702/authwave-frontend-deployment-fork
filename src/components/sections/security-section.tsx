@@ -8,7 +8,7 @@ const Security = () => {
       id="security"
     >
       <div className="w-full flex-center flex-col text-center gap-12 sm:gap-16 lg:gap-20 2xl:gap-80 px-4 sm:px-6 lg:px-8">
-        <div className="flex-center flex-col text-center gap-6 sm:gap-8 lg:gap-10 2xl:gap-18">
+        <div className="flex-center flex-col text-center gap-6 sm:gap-8 lg:gap-14 2xl:gap-18">
           <h2 className="font-bold text-24 sm:text-30 lg:text-40 2xl:text-70 leading-tight">
             <span className="text-gradient px-4">Uncompromised Security</span> at
             Every Layer
