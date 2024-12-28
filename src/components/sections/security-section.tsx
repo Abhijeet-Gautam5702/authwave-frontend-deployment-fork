@@ -40,13 +40,12 @@ const securityFeatures = [
     title: "Token Security",
     bullets: [
       "JWT-based access/refresh tokens",
-      "Automatic token rotation and revocation",
     ],
   },
   {
     icon: <Lock className="w-full h-full text-[#00B6F0]" />,
     title: "Password Protection",
-    bullets: ["Bcrypt hashing", "Secure password reset flow with timeouts"],
+    bullets: ["Bcrypt hashing", "Secure password reset flow"],
   },
   {
     icon: <RefreshCw className="w-full h-full text-[#00B6F0]" />,
@@ -75,6 +74,6 @@ const securityFeatures = [
   {
     icon: <Code className="w-full h-full text-[#00B6F0]" />,
     title: "API Security",
-    bullets: ["Unique project keys and IDs", "Key regeneration capabilities"],
+    bullets: ["Unique project keys and IDs", "Secure Project Key regeneration"],
   },
 ];
